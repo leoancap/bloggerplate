@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Code NavItem 1`] = `
+<div
+  aria-selected="true"
+  class="css-0 css-cnogfq css-0"
+  title="Code"
+>
+  <div>
+    <svg
+      aria-hidden="true"
+      class="css-18cthx4-EmotionIconBase ex0cdmw0"
+      fill="none"
+      focusable="false"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <polyline
+        points="4 17 10 11 4 5"
+      />
+      <line
+        x1="12"
+        x2="20"
+        y1="19"
+        y2="19"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`render Review NavItem 1`] = `
+<div
+  aria-selected="false"
+  class="css-0 css-1fdyg7l css-0"
+  title="Review"
+>
+  <div>
+    <svg
+      aria-hidden="true"
+      class="css-18cthx4-EmotionIconBase ex0cdmw0"
+      fill="none"
+      focusable="false"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="3"
+      />
+      <path
+        d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`render Settings NavItem 1`] = `
+<div
+  aria-selected="false"
+  class="css-0 css-1fdyg7l css-0"
+  title="Settings"
+>
+  <svg
+    aria-hidden="true"
+    class="css-18cthx4-EmotionIconBase ex0cdmw0"
+    fill="none"
+    focusable="false"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="12"
+      cy="12"
+      r="3"
+    />
+    <path
+      d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"
+    />
+  </svg>
+</div>
+`;
+
+exports[`render Signin NavItem 1`] = `
+<div
+  aria-selected="false"
+  class="css-0 css-1b3xcq9 css-0"
+  title="Signin"
+>
+  <svg
+    aria-hidden="true"
+    class="css-18cthx4-EmotionIconBase ex0cdmw0"
+    fill="none"
+    focusable="false"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"
+    />
+    <circle
+      cx="12"
+      cy="7"
+      r="4"
+    />
+  </svg>
+</div>
+`;
+
+exports[`render Signout NavItem 1`] = `
+<div
+  aria-selected="false"
+  class="css-0 css-1b3xcq9 css-0"
+  title="Signout"
+>
+  <img
+    alt="mockUser"
+    class=" css-0"
+  />
+</div>
+`;

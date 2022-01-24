@@ -1,0 +1,12 @@
+export { AggregateTagArgs } from "./AggregateTagArgs";
+export { CreateManyTagArgs } from "./CreateManyTagArgs";
+export { CreateTagArgs } from "./CreateTagArgs";
+export { DeleteManyTagArgs } from "./DeleteManyTagArgs";
+export { DeleteTagArgs } from "./DeleteTagArgs";
+export { FindFirstTagArgs } from "./FindFirstTagArgs";
+export { FindManyTagArgs } from "./FindManyTagArgs";
+export { FindUniqueTagArgs } from "./FindUniqueTagArgs";
+export { GroupByTagArgs } from "./GroupByTagArgs";
+export { UpdateManyTagArgs } from "./UpdateManyTagArgs";
+export { UpdateTagArgs } from "./UpdateTagArgs";
+export { UpsertTagArgs } from "./UpsertTagArgs";

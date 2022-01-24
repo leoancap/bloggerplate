@@ -1,0 +1,31 @@
+import { GraphQLResolveInfo } from "graphql";
+import { AggregateTagArgs } from "./args/AggregateTagArgs";
+import { CreateManyTagArgs } from "./args/CreateManyTagArgs";
+import { CreateTagArgs } from "./args/CreateTagArgs";
+import { DeleteManyTagArgs } from "./args/DeleteManyTagArgs";
+import { DeleteTagArgs } from "./args/DeleteTagArgs";
+import { FindFirstTagArgs } from "./args/FindFirstTagArgs";
+import { FindManyTagArgs } from "./args/FindManyTagArgs";
+import { FindUniqueTagArgs } from "./args/FindUniqueTagArgs";
+import { GroupByTagArgs } from "./args/GroupByTagArgs";
+import { UpdateManyTagArgs } from "./args/UpdateManyTagArgs";
+import { UpdateTagArgs } from "./args/UpdateTagArgs";
+import { UpsertTagArgs } from "./args/UpsertTagArgs";
+import { Tag } from "../../../models/Tag";
+import { AffectedRowsOutput } from "../../outputs/AffectedRowsOutput";
+import { AggregateTag } from "../../outputs/AggregateTag";
+import { TagGroupBy } from "../../outputs/TagGroupBy";
+export declare class TagCrudResolver {
+    tag(ctx: any, info: GraphQLResolveInfo, args: FindUniqueTagArgs): Promise<Tag | null>;
+    findFirstTag(ctx: any, info: GraphQLResolveInfo, args: FindFirstTagArgs): Promise<Tag | null>;
+    tags(ctx: any, info: GraphQLResolveInfo, args: FindManyTagArgs): Promise<Tag[]>;
+    createTag(ctx: any, info: GraphQLResolveInfo, args: CreateTagArgs): Promise<Tag>;
+    createManyTag(ctx: any, info: GraphQLResolveInfo, args: CreateManyTagArgs): Promise<AffectedRowsOutput>;
+    deleteTag(ctx: any, info: GraphQLResolveInfo, args: DeleteTagArgs): Promise<Tag | null>;
+    updateTag(ctx: any, info: GraphQLResolveInfo, args: UpdateTagArgs): Promise<Tag | null>;
+    deleteManyTag(ctx: any, info: GraphQLResolveInfo, args: DeleteManyTagArgs): Promise<AffectedRowsOutput>;
+    updateManyTag(ctx: any, info: GraphQLResolveInfo, args: UpdateManyTagArgs): Promise<AffectedRowsOutput>;
+    upsertTag(ctx: any, info: GraphQLResolveInfo, args: UpsertTagArgs): Promise<Tag>;
+    aggregateTag(ctx: any, info: GraphQLResolveInfo, args: AggregateTagArgs): Promise<AggregateTag>;
+    groupByTag(ctx: any, info: GraphQLResolveInfo, args: GroupByTagArgs): Promise<TagGroupBy[]>;
+}
