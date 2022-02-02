@@ -2,62 +2,19 @@
 'use strict';
 
 var Curry = require("rescript/lib/js/curry.js");
-var Theme = require("../../lib/Theme/Theme.bs.js");
 var React = require("react");
 var NextIntl = require("../../bindings/NextIntl/NextIntl.bs.js");
 var Link = require("next/link").default;
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var Router = require("next/router");
-var Css = require("@emotion/css");
+var Navbar_Styles = require("./Navbar_Styles.bs.js");
 var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
 var React$1 = require("next-auth/react");
 var Feather = require("@emotion-icons/feather");
 
-var container = Css.css({
-      backgroundColor: Theme.Colors.gray,
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column"
-    });
-
-function icon(activeOpt, pushToBottomOpt, param) {
-  var active = activeOpt !== undefined ? activeOpt : false;
-  var pushToBottom = pushToBottomOpt !== undefined ? pushToBottomOpt : false;
-  return Css.css({
-              padding: Theme.Padding.xs,
-              position: "relative",
-              "svg, img": {
-                width: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 4),
-                height: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 4)
-              },
-              marginTop: pushToBottom ? "auto" : "unset",
-              color: Theme.Colors.grayLight,
-              cursor: "pointer",
-              "&:hover": {
-                color: Theme.Colors.white
-              },
-              "&:before": {
-                content: "' '",
-                height: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 6),
-                width: "2px",
-                position: "absolute",
-                top: "0",
-                left: "0",
-                backgroundColor: Theme.Colors.white,
-                display: active ? "unset" : "none"
-              }
-            });
-}
-
-var Styles = {
-  container: container,
-  icon: icon
-};
-
 function Navbar$NavItem(Props) {
   var href = Props.href;
-  var icon$1 = Props.icon;
+  var icon = Props.icon;
   var title = Props.title;
   var activeOpt = Props.active;
   var pushToBottomOpt = Props.pushToBottom;
@@ -66,11 +23,11 @@ function Navbar$NavItem(Props) {
   var pushToBottom = pushToBottomOpt !== undefined ? pushToBottomOpt : false;
   var content = href !== undefined ? React.createElement(Link, {
           href: href,
-          children: React.createElement("div", undefined, icon$1)
-        }) : icon$1;
+          children: React.createElement("div", undefined, icon)
+        }) : icon;
   var tmp = {
     children: content,
-    className: icon(active, pushToBottom, undefined),
+    className: Navbar_Styles.icon(active, pushToBottom, undefined),
     ariaSelected: active
   };
   if (onClick !== undefined) {
@@ -105,11 +62,11 @@ function Navbar(Props) {
   }
   return React.createElement(AncestorCustom.Config.Box.make, {
               children: null,
-              className: container
+              className: Navbar_Styles.container
             }, React.createElement(Navbar$NavItem, {
                   href: "/",
                   icon: React.createElement(Feather.Terminal, {}),
-                  title: Curry._1(t, "Code"),
+                  title: Curry._1(t, "Posts"),
                   active: pathname === "/"
                 }), React.createElement(Navbar$NavItem, {
                   href: "/review",
@@ -133,9 +90,11 @@ function Navbar(Props) {
                 }));
 }
 
+var Styles;
+
 var make = Navbar;
 
 exports.Styles = Styles;
 exports.NavItem = NavItem;
 exports.make = make;
-/* container Not a pure module */
+/* react Not a pure module */

@@ -14,7 +14,9 @@
     "rescript-relay",
     "bs-fetch",
     "@glennsl/rescript-jest",
-    "bs-dom-testing-library"
+    "bs-dom-testing-library",
+    "@rescriptbr/reform",
+    "reschema"
   ],
-  "ppx-flags": ["rescript-relay/ppx"]
+  "ppx-flags": ["rescript-relay/ppx", "lenses-ppx/ppx"]
 }

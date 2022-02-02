@@ -26,7 +26,7 @@ function Text$Title(Props) {
                     })],
               fontSize: [AncestorCustom.xs({
                       NAME: "px",
-                      VAL: 64
+                      VAL: Theme.FontSize.lg
                     })],
               lineHeight: [AncestorCustom.xs({
                       NAME: "pct",
@@ -57,7 +57,7 @@ function Text$H3(Props) {
                     })],
               fontSize: [AncestorCustom.xs({
                       NAME: "px",
-                      VAL: 24
+                      VAL: Theme.FontSize.md
                     })],
               lineHeight: [AncestorCustom.xs({
                       NAME: "pct",
@@ -88,7 +88,7 @@ function Text$Body(Props) {
                     })],
               fontSize: [AncestorCustom.xs({
                       NAME: "px",
-                      VAL: 16
+                      VAL: Theme.FontSize.sm
                     })],
               tag: tag,
               className: className + styles,
@@ -98,6 +98,33 @@ function Text$Body(Props) {
 
 var Body = {
   make: Text$Body
+};
+
+function Text$Small(Props) {
+  var colorOpt = Props.color;
+  var classNameOpt = Props.className;
+  var tagOpt = Props.tag;
+  var children = Props.children;
+  var color = colorOpt !== undefined ? colorOpt : Theme.Colors.danger;
+  var className = classNameOpt !== undefined ? classNameOpt : "";
+  var tag = tagOpt !== undefined ? tagOpt : "p";
+  return React.createElement(AncestorCustom.Config.Base.make, {
+              color: [AncestorCustom.xs({
+                      NAME: "hex",
+                      VAL: color
+                    })],
+              fontSize: [AncestorCustom.xs({
+                      NAME: "px",
+                      VAL: Theme.FontSize.xs
+                    })],
+              tag: tag,
+              className: className + styles,
+              children: Render.s(children)
+            });
+}
+
+var Small = {
+  make: Text$Small
 };
 
 function Text$Button(Props) {
@@ -116,7 +143,7 @@ function Text$Button(Props) {
               fontWeight: [AncestorCustom.xs("bold")],
               fontSize: [AncestorCustom.xs({
                       NAME: "px",
-                      VAL: 16
+                      VAL: Theme.FontSize.sm
                     })],
               tag: tag,
               className: className + styles,
@@ -132,5 +159,6 @@ exports.styles = styles;
 exports.Title = Title;
 exports.H3 = H3;
 exports.Body = Body;
+exports.Small = Small;
 exports.Button = Button;
 /* styles Not a pure module */

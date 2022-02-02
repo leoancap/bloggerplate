@@ -15,14 +15,18 @@ function button(intent, disabled) {
               minHeight: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 3),
               color: Theme.Colors.white,
               borderRadius: Curry._1(AncestorCustom.Config.Styles.Radius.make, 1),
-              backgroundColor: intent === "danger" ? Theme.Colors.danger : (
-                  intent === "success" ? Theme.Colors.success : Theme.Colors.primary
+              backgroundColor: intent === "primary" ? Theme.Colors.primary : (
+                  intent === "danger" ? Theme.Colors.danger : (
+                      intent === "success" ? Theme.Colors.success : Theme.Colors.none
+                    )
                 ),
               fontFamily: "Roboto",
               cursor: disabled ? "not-allowed" : "pointer",
               "&:hover": {
-                backgroundColor: intent === "danger" ? Theme.Colors.dangerDark : (
-                    intent === "success" ? Theme.Colors.successDark : Theme.Colors.primaryDark
+                backgroundColor: intent === "primary" ? Theme.Colors.primaryDark : (
+                    intent === "danger" ? Theme.Colors.dangerDark : (
+                        intent === "success" ? Theme.Colors.successDark : Theme.Colors.noneDark
+                      )
                   )
               },
               outline: "none",
@@ -33,6 +37,7 @@ function button(intent, disabled) {
 function icon(param) {
   return Css.css({
               outline: "",
+              padding: 0,
               border: "none",
               backgroundColor: "transparent",
               color: Theme.Colors.grayLight,
@@ -54,23 +59,30 @@ var Styles = {
 
 function Button(Props) {
   var childrenOpt = Props.children;
+  var type_ = Props.type_;
   var onClick = Props.onClick;
   var disabledOpt = Props.disabled;
   var intentOpt = Props.intent;
   var children = childrenOpt !== undefined ? Caml_option.valFromOption(childrenOpt) : null;
   var disabled = disabledOpt !== undefined ? disabledOpt : false;
   var intent = intentOpt !== undefined ? intentOpt : "primary";
-  return React.createElement(AncestorCustom.Config.Base.make, {
-              tag: "button",
-              className: button(intent, disabled),
-              children: React.createElement(AncestorCustom.Config.Box.make, {
-                    children: React.createElement($$Text.Button.make, {
-                          children: children
-                        })
-                  }),
-              onClick: onClick,
-              disabled: disabled
-            });
+  var tmp = {
+    tag: "button",
+    className: button(intent, disabled),
+    children: React.createElement(AncestorCustom.Config.Box.make, {
+          children: React.createElement($$Text.Button.make, {
+                children: children
+              })
+        }),
+    disabled: disabled
+  };
+  if (onClick !== undefined) {
+    tmp.onClick = Caml_option.valFromOption(onClick);
+  }
+  if (type_ !== undefined) {
+    tmp.type_ = Caml_option.valFromOption(type_);
+  }
+  return React.createElement(AncestorCustom.Config.Base.make, tmp);
 }
 
 function Button$Icon(Props) {

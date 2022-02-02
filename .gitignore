@@ -1,10 +1,13 @@
 node_modules/
 yarn-error.log
 
+.env
+prisma/.env
+
 # Next
 .next/
 
 # ReScript
 .bsb.lock
 .merlin
-lib/
+/lib

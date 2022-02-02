@@ -53,8 +53,6 @@ function Modal(Props) {
         )
     );
   if (isOpen) {
-    return null;
-  } else {
     return React.createElement(AncestorCustom.Config.Box.make, {
                 children: React.createElement(AncestorCustom.Config.Box.make, {
                       children: content,
@@ -69,6 +67,8 @@ function Modal(Props) {
                     return Curry._1(onClose, undefined);
                   })
               });
+  } else {
+    return null;
   }
 }
 

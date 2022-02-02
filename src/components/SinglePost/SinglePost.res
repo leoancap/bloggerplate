@@ -6,13 +6,16 @@ module PostFragment = %relay(`
     id
     title
     body
+    user {
+      name
+      image
+    }
   }
 `)
 
 @react.component
 let make = (~post) => {
   let post = PostFragment.use(post)
-
 
   <Card>
     //

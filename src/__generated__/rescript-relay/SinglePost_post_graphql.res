@@ -4,10 +4,15 @@
 module Types = {
   @@ocaml.warning("-30")
   
+  type rec fragment_user = {
+    name: option<string>,
+    image: option<string>,
+  }
   type fragment = {
     id: string,
     title: string,
     body: string,
+    user: fragment_user,
   }
 }
 
@@ -16,7 +21,7 @@ module Internal = {
   let fragmentConverter: 
     Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
     %raw(
-      json`{}`
+      json`{"__root":{"user_name":{"n":""},"user_image":{"n":""}}}`
     )
   
   let fragmentConverterMap = ()
@@ -64,6 +69,31 @@ let node: operationType = %raw(json` {
       "args": null,
       "kind": "ScalarField",
       "name": "body",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "user",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "image",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],

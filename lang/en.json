@@ -1,9 +1,14 @@
 {
-  "Code": "Code",
+  "Posts": "Posts",
   "Review": "Review",
   "Signin": "Sign in",
   "Signout": "Sign out",
   "Settings": "Settings",
-  "Posts": "Posts",
-  "Add Post": "Add Post"
+  "Title": "Title",
+  "Body": "Body",
+  "Save": "Save",
+  "Cancel": "Cancel",
+  "Add Post": "Add Post",
+  "Add a new post": "Add a new Post",
+  "String must not be empty": "String must not be empty"
 }

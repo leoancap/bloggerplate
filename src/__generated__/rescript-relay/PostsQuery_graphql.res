@@ -133,6 +133,31 @@ let node: operationType = %raw(json` {
             "kind": "ScalarField",
             "name": "body",
             "storageKey": null
+          },
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "User",
+            "kind": "LinkedField",
+            "name": "user",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "name",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "image",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -140,12 +165,12 @@ let node: operationType = %raw(json` {
     ]
   },
   "params": {
-    "cacheID": "6e016bb6a54c756a036c5c624e07d500",
+    "cacheID": "a3482591a36fdba238739ee652fd6614",
     "id": null,
     "metadata": {},
     "name": "PostsQuery",
     "operationKind": "query",
-    "text": "query PostsQuery {\n  posts {\n    ...SinglePost_post\n  }\n}\n\nfragment SinglePost_post on Post {\n  id\n  title\n  body\n}\n"
+    "text": "query PostsQuery {\n  posts {\n    ...SinglePost_post\n  }\n}\n\nfragment SinglePost_post on Post {\n  id\n  title\n  body\n  user {\n    name\n    image\n  }\n}\n"
   }
 } `)
 

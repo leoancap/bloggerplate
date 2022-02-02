@@ -3,7 +3,7 @@
 
 var Posts = require("../components/Posts/Posts.bs.js");
 var React = require("react");
-var RelayEnv = require("../lib/Relay/RelayEnv.bs.js");
+var RelayEnv = require("../lib/RelayEnv/RelayEnv.bs.js");
 var AncestorCustom = require("../lib/Theme/AncestorCustom.bs.js");
 var React$1 = require("next-auth/react");
 

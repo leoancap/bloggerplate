@@ -41,13 +41,14 @@ let make = (~isOpen=false, ~onClose, ~size=#lg, ~content) => {
   | #lg => 80
   }
 
-  isOpen
-    ? React.null
-    : <Box className=Styles.background onClick={_ => onClose()}>
-        <Box
-          className={Styles.container(~size)}
-          onClick={evt => ReactEvent.Mouse.stopPropagation(evt)}>
-          content
-        </Box>
+  switch isOpen {
+  | false => React.null
+  | true =>
+    <Box className=Styles.background onClick={_ => onClose()}>
+      <Box
+        className={Styles.container(~size)} onClick={evt => ReactEvent.Mouse.stopPropagation(evt)}>
+        content
       </Box>
+    </Box>
+  }
 }

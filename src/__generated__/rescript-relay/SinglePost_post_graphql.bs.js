@@ -6,7 +6,7 @@ var RescriptRelay = require("rescript-relay/src/RescriptRelay.bs.js");
 
 var Types = {};
 
-var fragmentConverter = {};
+var fragmentConverter = {"__root":{"user_name":{"n":""},"user_image":{"n":""}}};
 
 function convertFragment(v) {
   return RescriptRelay.convertObj(v, fragmentConverter, undefined, undefined);
@@ -45,6 +45,31 @@ var node = {
       "args": null,
       "kind": "ScalarField",
       "name": "body",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "concreteType": "User",
+      "kind": "LinkedField",
+      "name": "user",
+      "plural": false,
+      "selections": [
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "name",
+          "storageKey": null
+        },
+        {
+          "alias": null,
+          "args": null,
+          "kind": "ScalarField",
+          "name": "image",
+          "storageKey": null
+        }
+      ],
       "storageKey": null
     }
   ],

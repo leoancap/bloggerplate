@@ -3,7 +3,7 @@ open AncestorCustom
 
 module Styles = {
   open Emotion
-  let button = (~intent, ~disabled) =>
+  let button = (~intent: intent, ~disabled) =>
     css({
       "minWidth": Spacing.make(12),
       "minHeight": Spacing.make(3),
@@ -13,6 +13,7 @@ module Styles = {
       | #primary => Colors.primary
       | #success => Colors.success
       | #danger => Colors.danger
+      | #none => Colors.none
       },
       "fontFamily": "Roboto",
       "cursor": disabled ? "not-allowed" : "pointer",
@@ -21,6 +22,7 @@ module Styles = {
         | #primary => Colors.primaryDark
         | #success => Colors.successDark
         | #danger => Colors.dangerDark
+        | #none => Colors.noneDark
         },
       },
       "outline": "none",
@@ -30,6 +32,7 @@ module Styles = {
   let icon = () =>
     css({
       "outline": "",
+      "padding": 0,
       "border": "none",
       "backgroundColor": "transparent",
       "color": Colors.grayLight,
@@ -45,8 +48,8 @@ module Styles = {
 }
 
 @react.component
-let make = (~children=React.null, ~onClick, ~disabled=false, ~intent=#primary) => {
-  <Base tag=#button onClick className={Styles.button(~intent, ~disabled)} disabled>
+let make = (~children=React.null, ~type_=?, ~onClick=?, ~disabled=false, ~intent=#primary) => {
+  <Base ?type_ tag=#button ?onClick className={Styles.button(~intent, ~disabled)} disabled>
     <Box> <Text.Button> children </Text.Button> </Box>
   </Base>
 }

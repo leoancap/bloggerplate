@@ -10,32 +10,14 @@ var Render = require("../../lib/Render/Render.bs.js");
 var NextIntl = require("../../bindings/NextIntl/NextIntl.bs.js");
 var SinglePost = require("../SinglePost/SinglePost.bs.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
-var Css = require("@emotion/css");
 var AddPostModal = require("../AddPostModal/AddPostModal.bs.js");
+var Posts_Styles = require("./Posts_Styles.bs.js");
 var RescriptRelay = require("rescript-relay/src/RescriptRelay.bs.js");
 var RelayRuntime = require("relay-runtime");
 var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
 var Hooks = require("react-relay/hooks");
 var PostsQuery_graphql = require("../../__generated__/rescript-relay/PostsQuery_graphql.bs.js");
 var RescriptRelay_Internal = require("rescript-relay/src/RescriptRelay_Internal.bs.js");
-
-var container = Css.css({
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",
-      gridGap: Theme.Padding.md
-    });
-
-var header = Css.css({
-      padding: Theme.Padding.md,
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center"
-    });
-
-var Styles = {
-  container: container,
-  header: header
-};
 
 function use(variables, fetchPolicy, fetchKey, networkCacheConfig, param) {
   var data = Hooks.useLazyLoadQuery(PostsQuery_graphql.node, RescriptRelay_Internal.internal_cleanObjectFromUndefinedRaw(PostsQuery_graphql.Internal.convertVariables(variables)), {
@@ -115,8 +97,10 @@ var Query = {
   retain: retain
 };
 
-function Posts(Props) {
-  var data = use(undefined, undefined, undefined, undefined, undefined);
+function Posts$Content(Props) {
+  var queryRef = Props.queryRef;
+  var refetch = Props.refetch;
+  var data = usePreloaded(queryRef, undefined);
   var t = NextIntl.useTranslations(undefined);
   var match = React.useState(function () {
         return false;
@@ -131,31 +115,65 @@ function Posts(Props) {
               children: null
             }, React.createElement(AncestorCustom.Config.Box.make, {
                   children: null,
-                  className: header
+                  className: Posts_Styles.header
                 }, React.createElement($$Text.Title.make, {
                       children: Curry._1(t, "Posts")
                     }), React.createElement(AncestorCustom.Config.Box.make, {
                       children: null
                     }, React.createElement(AddPostModal.make, {
                           isOpen: match[0],
-                          onClose: toggleModal
+                          onClose: toggleModal,
+                          onSave: (function (param) {
+                              Curry._1(refetch, undefined);
+                              return Curry._1(setIsModalOpen, (function (isOpen) {
+                                            return !isOpen;
+                                          }));
+                            })
                         }), React.createElement(Button.make, {
                           children: Render.s(Curry._1(t, "Add Post")),
                           onClick: toggleModal
                         }))), React.createElement(AncestorCustom.Config.Box.make, {
                   px: [AncestorCustom.xs(Theme.Size.md)],
-                  children: Render.map(data.posts, (function (thisPost) {
+                  children: Render.mapi(data.posts, (function (thisPost, key) {
                           return React.createElement(SinglePost.make, {
-                                      post: thisPost.fragmentRefs
+                                      post: thisPost.fragmentRefs,
+                                      key: key
                                     });
                         })),
-                  className: container
+                  className: Posts_Styles.container
                 }));
 }
+
+var Content = {
+  make: Posts$Content
+};
+
+function Posts(Props) {
+  var match = useLoader(undefined);
+  var loadQuery = match[1];
+  var queryRef = match[0];
+  React.useEffect((function () {
+          Curry._4(loadQuery, undefined, undefined, undefined, undefined);
+          
+        }), []);
+  if (queryRef !== undefined) {
+    return React.createElement(Posts$Content, {
+                queryRef: Caml_option.valFromOption(queryRef),
+                refetch: (function (param) {
+                    return Curry._4(loadQuery, undefined, undefined, undefined, undefined);
+                  })
+              });
+  } else {
+    return null;
+  }
+}
+
+var Styles;
 
 var make = Posts;
 
 exports.Styles = Styles;
 exports.Query = Query;
+exports.Content = Content;
 exports.make = make;
-/* container Not a pure module */
+/* Text Not a pure module */
