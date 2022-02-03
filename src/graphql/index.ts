@@ -31,6 +31,8 @@ const authChecker: AuthChecker<{
   return !!hasEmail;
 };
 
+const isDev = process.env.NODE_ENV === "development";
+
 applyResolversEnhanceMap({
   Post: {
     _all: [Authorized("post", "posts")],
@@ -45,7 +47,7 @@ const handler = async (req: MicroRequest, res: ServerResponse) => {
   const schema = await buildSchema({
     resolvers: [PostRelationsResolver, PostCrudResolver],
     authChecker: authChecker,
-    emitSchemaFile: true,
+    emitSchemaFile: isDev,
   });
 
   const apolloServer = new ApolloServer({
