@@ -3,7 +3,13 @@ open Fetch
 
 exception Graphql_error(string)
 
-let apiUrl = "http://localhost:3000/api/graphql"
+let isProd: bool = %raw("process.env.NODE_ENV === 'production'")
+
+%raw(`console.log(process.env.NODE_ENV)`)
+
+let apiUrl = isProd
+  ? "https://bloggerplate.vercel.app/api/graphql"
+  : "http://localhost:3000/api/graphql"
 
 let fetchQuery: RescriptRelay.Network.fetchFunctionPromise = (
   operation,

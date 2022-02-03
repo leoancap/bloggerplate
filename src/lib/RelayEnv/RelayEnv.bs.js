@@ -12,7 +12,11 @@ var Caml_exceptions = require("rescript/lib/js/caml_exceptions.js");
 
 var Graphql_error = /* @__PURE__ */Caml_exceptions.create("RelayEnv.Graphql_error");
 
-var apiUrl = "http://localhost:3000/api/graphql";
+var isProd = (process.env.NODE_ENV === 'production');
+
+((console.log(process.env.NODE_ENV)));
+
+var apiUrl = isProd ? "https://bloggerplate.vercel.app/api/graphql" : "http://localhost:3000/api/graphql";
 
 function fetchQuery(operation, variables, _cacheConfig, _uploadables) {
   return fetch(apiUrl, Fetch.RequestInit.make(/* Post */2, {
@@ -54,6 +58,7 @@ function createEnvironment(records, param) {
 }
 
 exports.Graphql_error = Graphql_error;
+exports.isProd = isProd;
 exports.apiUrl = apiUrl;
 exports.fetchQuery = fetchQuery;
 exports.getRecords = getRecords;

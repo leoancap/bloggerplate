@@ -1,4 +1,4 @@
-# Rescript / Relay / Ancestor / Prisma / Typegraphql / NextJS Starter Project
+# Rescript / Relay / Ancestor / Prisma / Typegraphql / NextJs Starter Project
 
 This is a NextJS based template with following setup:
 
@@ -19,7 +19,6 @@ In another tab, run the Relay-Compiler:
 
 ```
 yarn relay:watch
-
 ```
 
 In another tab, run the Next dev server:

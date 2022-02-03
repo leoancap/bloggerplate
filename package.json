@@ -1,6 +1,7 @@
 {
   "name": "bloggerplate",
   "scripts": {
+    "build": "yarn relay:build && yarn res:build && yarn next build",
     "dev": "next dev",
     "prisma:gen": "yarn prisma generate",
     "relay:build": "rescript-relay-compiler",
@@ -9,7 +10,6 @@
     "res:clean": "rescript clean",
     "res:watch": "rescript build -w",
     "res:start": "rescript clean && rescript build -w",
-    "storybook": "start-storybook -p 6006 -s public",
     "test": "jest --watchAll src/**/*_Test.bs.js"
   },
   "dependencies": {
@@ -51,14 +51,6 @@
     "@rescript/react": "^0.10.3",
     "@rescriptbr/ancestor": "^0.4.6",
     "@ryyppy/rescript-promise": "^2.1.0",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/builder-webpack5": "^6.3.12",
-    "@storybook/manager-webpack5": "^6.3.12",
-    "@storybook/node-logger": "^6.4.9",
-    "@storybook/preset-create-react-app": "^4.0.0",
-    "@storybook/react": "^6.3.12",
     "@testing-library/react": "^13.0.0-alpha.5",
     "@types/node": "^17.0.5",
     "@types/react": "^17.0.38",
