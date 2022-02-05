@@ -3,6 +3,7 @@
 
 var Card = require("../Card/Card.bs.js");
 var $$Text = require("../Text/Text.bs.js");
+var CssJs = require("bs-css-emotion/src/CssJs.bs.js");
 var Theme = require("../../lib/Theme/Theme.bs.js");
 var React = require("react");
 var Caml_option = require("rescript/lib/js/caml_option.js");
@@ -35,6 +36,39 @@ var PostFragment = {
   useOpt: useOpt
 };
 
+var deleteProp = ((newProps, key) => delete newProps[key]);
+
+function getOrEmpty(str) {
+  if (str !== undefined) {
+    return " " + str;
+  } else {
+    return "";
+  }
+}
+
+var styles = CssJs.style([
+      CssJs.label("PostWrapper"),
+      CssJs.marginTop(Theme.Padding.xs)
+    ]);
+
+function make(props) {
+  var className = styles + getOrEmpty(Caml_option.undefined_to_opt(props.className));
+  var stylesObject = {
+    className: className,
+    ref: Caml_option.undefined_to_opt(props.innerRef)
+  };
+  var newProps = Object.assign({}, props, stylesObject);
+  deleteProp(newProps, "innerRef");
+  return React.createElement("div", newProps);
+}
+
+var PostWrapper = {
+  deleteProp: deleteProp,
+  getOrEmpty: getOrEmpty,
+  styles: styles,
+  make: make
+};
+
 function SinglePost(Props) {
   var post = Props.post;
   var post$1 = use(post);
@@ -45,8 +79,7 @@ function SinglePost(Props) {
                         children: React.createElement($$Text.H3.make, {
                               children: post$1.title
                             })
-                      }), React.createElement(AncestorCustom.Config.Box.make, {
-                        mt: [AncestorCustom.xs(Theme.Size.xs)],
+                      }), React.createElement(make, {
                         children: React.createElement($$Text.Body.make, {
                               children: post$1.body
                             })
@@ -54,8 +87,9 @@ function SinglePost(Props) {
             });
 }
 
-var make = SinglePost;
+var make$1 = SinglePost;
 
 exports.PostFragment = PostFragment;
-exports.make = make;
-/* Card Not a pure module */
+exports.PostWrapper = PostWrapper;
+exports.make = make$1;
+/* styles Not a pure module */

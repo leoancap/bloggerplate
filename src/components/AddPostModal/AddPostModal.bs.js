@@ -133,15 +133,14 @@ function AddPostModal(Props) {
               isOpen: isOpen,
               onClose: onClose,
               size: "md",
-              content: React.createElement("form", {
-                    className: AddPostModal_Styles.container,
+              content: React.createElement(AddPostModal_Styles.Container.make, {
+                    children: null,
                     onSubmit: (function (e) {
                         e.preventDefault();
                         return Curry._1(form.submit, undefined);
                       })
-                  }, React.createElement(AncestorCustom.Config.Box.make, {
-                        children: null,
-                        className: AddPostModal_Styles.header
+                  }, React.createElement(AddPostModal_Styles.Header.make, {
+                        children: null
                       }, React.createElement($$Text.H3.make, {
                             color: Theme.Colors.grayLight,
                             children: Curry._1(t, "Add a new post")
@@ -171,9 +170,8 @@ function AddPostModal(Props) {
                                     _0: /* Body */1
                                   })
                             })
-                      }), React.createElement(AncestorCustom.Config.Box.make, {
-                        children: null,
-                        className: AddPostModal_Styles.footer
+                      }), React.createElement(AddPostModal_Styles.Footer.make, {
+                        children: null
                       }, React.createElement(Button.make, {
                             children: Render.s(Curry._1(t, "Cancel")),
                             onClick: (function (param) {
@@ -187,13 +185,10 @@ function AddPostModal(Props) {
             });
 }
 
-var Styles;
-
 var Form;
 
 var make = AddPostModal;
 
-exports.Styles = Styles;
 exports.Form = Form;
 exports.CreatePostMutation = CreatePostMutation;
 exports.make = make;

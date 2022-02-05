@@ -2,60 +2,10 @@
 'use strict';
 
 var $$Text = require("../Text/Text.bs.js");
-var Curry = require("rescript/lib/js/curry.js");
-var Theme = require("../../lib/Theme/Theme.bs.js");
 var React = require("react");
 var Caml_option = require("rescript/lib/js/caml_option.js");
-var Css = require("@emotion/css");
+var Button_Styles = require("./Button_Styles.bs.js");
 var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
-
-function button(intent, disabled) {
-  return Css.css({
-              minWidth: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 12),
-              minHeight: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 3),
-              color: Theme.Colors.white,
-              borderRadius: Curry._1(AncestorCustom.Config.Styles.Radius.make, 1),
-              backgroundColor: intent === "primary" ? Theme.Colors.primary : (
-                  intent === "danger" ? Theme.Colors.danger : (
-                      intent === "success" ? Theme.Colors.success : Theme.Colors.none
-                    )
-                ),
-              fontFamily: "Roboto",
-              cursor: disabled ? "not-allowed" : "pointer",
-              "&:hover": {
-                backgroundColor: intent === "primary" ? Theme.Colors.primaryDark : (
-                    intent === "danger" ? Theme.Colors.dangerDark : (
-                        intent === "success" ? Theme.Colors.successDark : Theme.Colors.noneDark
-                      )
-                  )
-              },
-              outline: "none",
-              border: "none"
-            });
-}
-
-function icon(param) {
-  return Css.css({
-              outline: "",
-              padding: 0,
-              border: "none",
-              backgroundColor: "transparent",
-              color: Theme.Colors.grayLight,
-              svg: {
-                width: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 3),
-                height: Curry._1(AncestorCustom.Config.Styles.Spacing.make, 3),
-                cursor: "pointer",
-                "&:hover": {
-                  color: Theme.Colors.white
-                }
-              }
-            });
-}
-
-var Styles = {
-  button: button,
-  icon: icon
-};
 
 function Button(Props) {
   var childrenOpt = Props.children;
@@ -68,7 +18,7 @@ function Button(Props) {
   var intent = intentOpt !== undefined ? intentOpt : "primary";
   var tmp = {
     tag: "button",
-    className: button(intent, disabled),
+    className: Button_Styles.buttonStyles(intent, disabled),
     children: React.createElement(AncestorCustom.Config.Box.make, {
           children: React.createElement($$Text.Button.make, {
                 children: children
@@ -90,7 +40,7 @@ function Button$Icon(Props) {
   var onClick = Props.onClick;
   var tmp = {
     tag: "button",
-    className: icon(undefined),
+    className: Button_Styles.iconStyles,
     children: children
   };
   if (onClick !== undefined) {
@@ -105,7 +55,6 @@ var Icon = {
 
 var make = Button;
 
-exports.Styles = Styles;
 exports.make = make;
 exports.Icon = Icon;
 /* Text Not a pure module */

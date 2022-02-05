@@ -146,20 +146,20 @@ module Error = {
   external make: (~statusCode: int, ~children: React.element) => React.element = "default"
 }
 
-module Dynamic = {
-  @deriving(abstract)
-  type options = {
-    @optional
-    ssr: bool,
-    @optional
-    loading: unit => React.element,
-  }
+/* module Dynamic = { */
+/* @deriving(abstract) */
+/* type options = { */
+/* @optional */
+/* ssr: bool, */
+/* @optional */
+/* loading: unit => React.element, */
+/* } */
 
-  @module("next/dynamic")
-  external dynamic: (unit => Js.Promise.t<'a>, options) => 'a = "default"
+/* @module("next/dynamic") */
+/* external dynamic: (unit => Js.Promise.t<'a>, options) => 'a = "default" */
 
-  @val external import_: string => Js.Promise.t<'a> = "import"
-}
+/* @val external import_: string => Js.Promise.t<'a> = "import" */
+/* } */
 
 type pageProps<'a> = {fromServer: 'a}
 

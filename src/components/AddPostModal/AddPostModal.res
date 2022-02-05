@@ -1,8 +1,8 @@
 open AncestorCustom
 open Render
 open Theme
+open AddPostModal_Styles
 
-module Styles = AddPostModal_Styles
 module Form = AddPostModal_Form
 
 module CreatePostMutation = %relay(`
@@ -66,16 +66,15 @@ let make = (~isOpen, ~onClose, ~onSave) => {
     size=#md
     isOpen
     onClose
-    content={<form
-      className=Styles.container
+    content={<Container
       onSubmit={e => {
         ReactEvent.Form.preventDefault(e)
         form.submit()
       }}>
-      <Box className=Styles.header>
+      <Header>
         <Text.H3 color=Colors.grayLight> {t("Add a new post")} </Text.H3>
         <Button.Icon onClick={_ => onClose()}> <Icon.FiX /> </Button.Icon>
-      </Box>
+      </Header>
       <Box>
         <Input
           error={form.getFieldError(Field(Title))}
@@ -91,10 +90,10 @@ let make = (~isOpen, ~onClose, ~onSave) => {
           label={t("Body")}
         />
       </Box>
-      <Box className=Styles.footer>
+      <Footer>
         <Button intent=#none onClick={_ => onClose()}> {t("Cancel")->s} </Button>
         <Button type_="submit"> {t("Save")->s} </Button>
-      </Box>
-    </form>}
+      </Footer>
+    </Container>}
   />
 }

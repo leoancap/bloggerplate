@@ -1,16 +1,18 @@
-let globalStyles = {
-  "html, body, #root": {
-    "width": "100%",
-    "height": "100%",
-    "margin": "0",
-    "padding": "0",
-  },
-  "*": {
-    "boxSizing": "border-box",
-    "fontSize": "10px",
-    "fontFamily": Theme.fontFamily,
-  },
-}
+%styled.global(`
+  html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+`)
+%styled.global(`
+  * {
+    box-sizing: border-box;
+    font-size: 10px;
+    font-family: 'Roboto Mono', monospace; 
+  }
+`)
 
 type pageProps = {
   session: Next.Auth.session,
@@ -36,7 +38,6 @@ let default = ({component, pageProps}) => {
     <RescriptRelay.Context.Provider
       environment={RelayEnv.createEnvironment(~records=pageProps.records, ())}>
       <Next.Auth.SessionProvider session=pageProps.session>
-        <Emotion.Global styles=globalStyles />
         <Layout> <Navbar /> <section> content </section> </Layout>
       </Next.Auth.SessionProvider>
     </RescriptRelay.Context.Provider>

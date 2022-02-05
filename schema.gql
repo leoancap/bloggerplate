@@ -68,15 +68,15 @@ input AccountProviderProviderAccountIdCompoundUniqueInput {
 }
 
 input AccountScalarWhereInput {
-  AND: [AccountScalarWhereInput!]
-  NOT: [AccountScalarWhereInput!]
-  OR: [AccountScalarWhereInput!]
   access_token: StringNullableFilter
+  AND: [AccountScalarWhereInput!]
   expires_at: IntNullableFilter
   id: StringFilter
   id_token: StringNullableFilter
+  NOT: [AccountScalarWhereInput!]
   oauth_token: StringNullableFilter
   oauth_token_secret: StringNullableFilter
+  OR: [AccountScalarWhereInput!]
   provider: StringFilter
   providerAccountId: StringFilter
   refresh_token: StringNullableFilter
@@ -103,11 +103,6 @@ input AccountUpdateManyMutationInput {
   type: StringFieldUpdateOperationsInput
 }
 
-input AccountUpdateManyWithWhereWithoutUserInput {
-  data: AccountUpdateManyMutationInput!
-  where: AccountScalarWhereInput!
-}
-
 input AccountUpdateManyWithoutUserInput {
   connect: [AccountWhereUniqueInput!]
   connectOrCreate: [AccountCreateOrConnectWithoutUserInput!]
@@ -122,9 +117,9 @@ input AccountUpdateManyWithoutUserInput {
   upsert: [AccountUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input AccountUpdateWithWhereUniqueWithoutUserInput {
-  data: AccountUpdateWithoutUserInput!
-  where: AccountWhereUniqueInput!
+input AccountUpdateManyWithWhereWithoutUserInput {
+  data: AccountUpdateManyMutationInput!
+  where: AccountScalarWhereInput!
 }
 
 input AccountUpdateWithoutUserInput {
@@ -143,6 +138,11 @@ input AccountUpdateWithoutUserInput {
   type: StringFieldUpdateOperationsInput
 }
 
+input AccountUpdateWithWhereUniqueWithoutUserInput {
+  data: AccountUpdateWithoutUserInput!
+  where: AccountWhereUniqueInput!
+}
+
 input AccountUpsertWithWhereUniqueWithoutUserInput {
   create: AccountCreateWithoutUserInput!
   update: AccountUpdateWithoutUserInput!
@@ -150,15 +150,15 @@ input AccountUpsertWithWhereUniqueWithoutUserInput {
 }
 
 input AccountWhereInput {
-  AND: [AccountWhereInput!]
-  NOT: [AccountWhereInput!]
-  OR: [AccountWhereInput!]
   access_token: StringNullableFilter
+  AND: [AccountWhereInput!]
   expires_at: IntNullableFilter
   id: StringFilter
   id_token: StringNullableFilter
+  NOT: [AccountWhereInput!]
   oauth_token: StringNullableFilter
   oauth_token_secret: StringNullableFilter
+  OR: [AccountWhereInput!]
   provider: StringFilter
   providerAccountId: StringFilter
   refresh_token: StringNullableFilter
@@ -521,11 +521,11 @@ enum PostScalarFieldEnum {
 
 input PostScalarWhereWithAggregatesInput {
   AND: [PostScalarWhereWithAggregatesInput!]
-  NOT: [PostScalarWhereWithAggregatesInput!]
-  OR: [PostScalarWhereWithAggregatesInput!]
   body: StringWithAggregatesFilter
   createdAt: DateTimeWithAggregatesFilter
   id: StringWithAggregatesFilter
+  NOT: [PostScalarWhereWithAggregatesInput!]
+  OR: [PostScalarWhereWithAggregatesInput!]
   title: StringWithAggregatesFilter
   updatedAt: DateTimeWithAggregatesFilter
   userId: StringWithAggregatesFilter
@@ -551,11 +551,11 @@ input PostUpdateManyMutationInput {
 
 input PostWhereInput {
   AND: [PostWhereInput!]
-  NOT: [PostWhereInput!]
-  OR: [PostWhereInput!]
   body: StringFilter
   createdAt: DateTimeFilter
   id: StringFilter
+  NOT: [PostWhereInput!]
+  OR: [PostWhereInput!]
   tags: TagListRelationFilter
   title: StringFilter
   updatedAt: DateTimeFilter
@@ -621,10 +621,10 @@ input SessionOrderByRelationAggregateInput {
 
 input SessionScalarWhereInput {
   AND: [SessionScalarWhereInput!]
-  NOT: [SessionScalarWhereInput!]
-  OR: [SessionScalarWhereInput!]
   expires: DateTimeFilter
   id: StringFilter
+  NOT: [SessionScalarWhereInput!]
+  OR: [SessionScalarWhereInput!]
   sessionToken: StringFilter
   userId: StringFilter
 }
@@ -633,11 +633,6 @@ input SessionUpdateManyMutationInput {
   expires: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   sessionToken: StringFieldUpdateOperationsInput
-}
-
-input SessionUpdateManyWithWhereWithoutUserInput {
-  data: SessionUpdateManyMutationInput!
-  where: SessionScalarWhereInput!
 }
 
 input SessionUpdateManyWithoutUserInput {
@@ -654,15 +649,20 @@ input SessionUpdateManyWithoutUserInput {
   upsert: [SessionUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input SessionUpdateWithWhereUniqueWithoutUserInput {
-  data: SessionUpdateWithoutUserInput!
-  where: SessionWhereUniqueInput!
+input SessionUpdateManyWithWhereWithoutUserInput {
+  data: SessionUpdateManyMutationInput!
+  where: SessionScalarWhereInput!
 }
 
 input SessionUpdateWithoutUserInput {
   expires: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   sessionToken: StringFieldUpdateOperationsInput
+}
+
+input SessionUpdateWithWhereUniqueWithoutUserInput {
+  data: SessionUpdateWithoutUserInput!
+  where: SessionWhereUniqueInput!
 }
 
 input SessionUpsertWithWhereUniqueWithoutUserInput {
@@ -673,10 +673,10 @@ input SessionUpsertWithWhereUniqueWithoutUserInput {
 
 input SessionWhereInput {
   AND: [SessionWhereInput!]
-  NOT: [SessionWhereInput!]
-  OR: [SessionWhereInput!]
   expires: DateTimeFilter
   id: StringFilter
+  NOT: [SessionWhereInput!]
+  OR: [SessionWhereInput!]
   sessionToken: StringFilter
   user: UserRelationFilter
   userId: StringFilter
@@ -785,8 +785,8 @@ input TagOrderByRelationAggregateInput {
 }
 
 input TagOrderByWithRelationInput {
-  Post: PostOrderByWithRelationInput
   name: SortOrder
+  Post: PostOrderByWithRelationInput
   postId: SortOrder
 }
 
@@ -797,19 +797,14 @@ enum TagScalarFieldEnum {
 
 input TagScalarWhereInput {
   AND: [TagScalarWhereInput!]
+  name: StringFilter
   NOT: [TagScalarWhereInput!]
   OR: [TagScalarWhereInput!]
-  name: StringFilter
   postId: StringNullableFilter
 }
 
 input TagUpdateManyMutationInput {
   name: StringFieldUpdateOperationsInput
-}
-
-input TagUpdateManyWithWhereWithoutPostInput {
-  data: TagUpdateManyMutationInput!
-  where: TagScalarWhereInput!
 }
 
 input TagUpdateManyWithoutPostInput {
@@ -826,13 +821,18 @@ input TagUpdateManyWithoutPostInput {
   upsert: [TagUpsertWithWhereUniqueWithoutPostInput!]
 }
 
-input TagUpdateWithWhereUniqueWithoutPostInput {
-  data: TagUpdateWithoutPostInput!
-  where: TagWhereUniqueInput!
+input TagUpdateManyWithWhereWithoutPostInput {
+  data: TagUpdateManyMutationInput!
+  where: TagScalarWhereInput!
 }
 
 input TagUpdateWithoutPostInput {
   name: StringFieldUpdateOperationsInput
+}
+
+input TagUpdateWithWhereUniqueWithoutPostInput {
+  data: TagUpdateWithoutPostInput!
+  where: TagWhereUniqueInput!
 }
 
 input TagUpsertWithWhereUniqueWithoutPostInput {
@@ -843,10 +843,10 @@ input TagUpsertWithWhereUniqueWithoutPostInput {
 
 input TagWhereInput {
   AND: [TagWhereInput!]
+  name: StringFilter
   NOT: [TagWhereInput!]
   OR: [TagWhereInput!]
   Post: PostRelationFilter
-  name: StringFilter
   postId: StringNullableFilter
 }
 
@@ -929,15 +929,15 @@ input UserUpsertWithoutProjectsInput {
 }
 
 input UserWhereInput {
-  AND: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-  OR: [UserWhereInput!]
   accounts: AccountListRelationFilter
+  AND: [UserWhereInput!]
   email: StringNullableFilter
   emailVerified: DateTimeNullableFilter
   id: StringFilter
   image: StringNullableFilter
   name: StringNullableFilter
+  NOT: [UserWhereInput!]
+  OR: [UserWhereInput!]
   projects: PostListRelationFilter
   sessions: SessionListRelationFilter
 }

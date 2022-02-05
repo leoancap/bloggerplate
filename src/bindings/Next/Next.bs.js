@@ -29,8 +29,6 @@ var Head = {};
 
 var $$Error = {};
 
-var Dynamic = {};
-
 var Req$1 = {};
 
 var CtxOrReq = {
@@ -52,6 +50,5 @@ exports.Router = Router;
 exports.$$Image = $$Image;
 exports.Head = Head;
 exports.$$Error = $$Error;
-exports.Dynamic = Dynamic;
 exports.Auth = Auth;
 /* No side effect */

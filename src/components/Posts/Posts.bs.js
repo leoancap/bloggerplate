@@ -2,6 +2,7 @@
 'use strict';
 
 var $$Text = require("../Text/Text.bs.js");
+var CssJs = require("bs-css-emotion/src/CssJs.bs.js");
 var Curry = require("rescript/lib/js/curry.js");
 var Theme = require("../../lib/Theme/Theme.bs.js");
 var React = require("react");
@@ -9,12 +10,12 @@ var Button = require("../Button/Button.bs.js");
 var Render = require("../../lib/Render/Render.bs.js");
 var NextIntl = require("../../bindings/NextIntl/NextIntl.bs.js");
 var SinglePost = require("../SinglePost/SinglePost.bs.js");
+var Belt_Option = require("rescript/lib/js/belt_Option.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var AddPostModal = require("../AddPostModal/AddPostModal.bs.js");
 var Posts_Styles = require("./Posts_Styles.bs.js");
 var RescriptRelay = require("rescript-relay/src/RescriptRelay.bs.js");
 var RelayRuntime = require("relay-runtime");
-var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
 var Hooks = require("react-relay/hooks");
 var PostsQuery_graphql = require("../../__generated__/rescript-relay/PostsQuery_graphql.bs.js");
 var RescriptRelay_Internal = require("rescript-relay/src/RescriptRelay_Internal.bs.js");
@@ -97,6 +98,39 @@ var Query = {
   retain: retain
 };
 
+var deleteProp = ((newProps, key) => delete newProps[key]);
+
+function getOrEmpty(str) {
+  if (str !== undefined) {
+    return " " + str;
+  } else {
+    return "";
+  }
+}
+
+var styles = CssJs.style([
+      CssJs.label("PostsWrapper"),
+      CssJs.padding(Theme.Size.md)
+    ]);
+
+function make(props) {
+  var className = styles + getOrEmpty(Caml_option.undefined_to_opt(props.className));
+  var stylesObject = {
+    className: className,
+    ref: Caml_option.undefined_to_opt(props.innerRef)
+  };
+  var newProps = Object.assign({}, props, stylesObject);
+  deleteProp(newProps, "innerRef");
+  return React.createElement("div", newProps);
+}
+
+var PostsWrapper = {
+  deleteProp: deleteProp,
+  getOrEmpty: getOrEmpty,
+  styles: styles,
+  make: make
+};
+
 function Posts$Content(Props) {
   var queryRef = Props.queryRef;
   var refetch = Props.refetch;
@@ -111,16 +145,11 @@ function Posts$Content(Props) {
                   return !isOpen;
                 }));
   };
-  return React.createElement(AncestorCustom.Config.Box.make, {
-              children: null
-            }, React.createElement(AncestorCustom.Config.Box.make, {
-                  children: null,
-                  className: Posts_Styles.header
+  return React.createElement("div", undefined, React.createElement(Posts_Styles.Header.make, {
+                  children: null
                 }, React.createElement($$Text.Title.make, {
                       children: Curry._1(t, "Posts")
-                    }), React.createElement(AncestorCustom.Config.Box.make, {
-                      children: null
-                    }, React.createElement(AddPostModal.make, {
+                    }), React.createElement("div", undefined, React.createElement(AddPostModal.make, {
                           isOpen: match[0],
                           onClose: toggleModal,
                           onSave: (function (param) {
@@ -132,15 +161,13 @@ function Posts$Content(Props) {
                         }), React.createElement(Button.make, {
                           children: Render.s(Curry._1(t, "Add Post")),
                           onClick: toggleModal
-                        }))), React.createElement(AncestorCustom.Config.Box.make, {
-                  px: [AncestorCustom.xs(Theme.Size.md)],
+                        }))), React.createElement(Posts_Styles.Container.make, {
                   children: Render.mapi(data.posts, (function (thisPost, key) {
                           return React.createElement(SinglePost.make, {
                                       post: thisPost.fragmentRefs,
                                       key: key
                                     });
-                        })),
-                  className: Posts_Styles.container
+                        }))
                 }));
 }
 
@@ -150,17 +177,23 @@ var Content = {
 
 function Posts(Props) {
   var match = useLoader(undefined);
+  var dispose = match[2];
   var loadQuery = match[1];
   var queryRef = match[0];
   React.useEffect((function () {
-          Curry._4(loadQuery, undefined, undefined, undefined, undefined);
+          console.log("queryRef", queryRef);
+          if (Belt_Option.isNone(queryRef)) {
+            console.log("geting data");
+            Curry._4(loadQuery, undefined, undefined, undefined, undefined);
+          }
           
-        }), []);
+        }), [queryRef]);
   if (queryRef !== undefined) {
     return React.createElement(Posts$Content, {
                 queryRef: Caml_option.valFromOption(queryRef),
                 refetch: (function (param) {
-                    return Curry._4(loadQuery, undefined, undefined, undefined, undefined);
+                    console.log("refetching");
+                    return Curry._1(dispose, undefined);
                   })
               });
   } else {
@@ -168,12 +201,10 @@ function Posts(Props) {
   }
 }
 
-var Styles;
+var make$1 = Posts;
 
-var make = Posts;
-
-exports.Styles = Styles;
 exports.Query = Query;
+exports.PostsWrapper = PostsWrapper;
 exports.Content = Content;
-exports.make = make;
-/* Text Not a pure module */
+exports.make = make$1;
+/* styles Not a pure module */

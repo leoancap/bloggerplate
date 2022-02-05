@@ -1,36 +1,44 @@
-open AncestorCustom
 open Theme
+open CssJs
 
-let container = Emotion.css({
-  "backgroundColor": Theme.Colors.gray,
-  "width": "100%",
-  "height": "100%",
-  "display": "flex",
-  "flexDirection": "column",
-})
+module Container = %styled.div(`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: $(Theme.Colors.gray);
+`)
 
-let icon = (~active=false, ~pushToBottom=false, ()) =>
-  Emotion.css({
-    "padding": Padding.xs,
-    "position": "relative",
-    "svg, img": {
-      "width": Spacing.make(4),
-      "height": Spacing.make(4),
-    },
-    "marginTop": pushToBottom ? "auto" : "unset",
-    "color": Colors.grayLight,
-    "cursor": "pointer",
-    "&:hover": {
-      "color": Colors.white,
-    },
-    "&:before": {
-      "content": "' '",
-      "height": Spacing.make(6),
-      "width": "2px",
-      "position": "absolute",
-      "top": "0",
-      "left": "0",
-      "backgroundColor": Colors.white,
-      "display": active ? "unset" : "none",
-    },
-  })
+module IconStyled = %styled.div(
+  (~status=#unactive, ~mt=#unset) => {
+    let display = switch status {
+    | #active => #unset
+    | #unactive => #none
+    }
+
+    [
+      color(Colors.grayLight),
+      cursor(#pointer),
+      position(#relative),
+      padding(Padding.xs),
+      marginTop(mt),
+    ]
+  }
+)
+/* svg, img { */
+/* height: $(Size.lg); */
+/* width: $(Size.lg); */
+/* } */
+/* &:hover { */
+/* color: $(Colors.white) */
+/* } */
+/* &::before { */
+/* content: ' '; */
+/* height: 6rem; */
+/* width: 2px; */
+/* top: 0; */
+/* left: 0; */
+/* position: absolute; */
+/* background-color: $(Colors.white); */
+/* display: $(display) */
+/* } */

@@ -16,27 +16,29 @@ function Navbar$NavItem(Props) {
   var href = Props.href;
   var icon = Props.icon;
   var title = Props.title;
-  var activeOpt = Props.active;
-  var pushToBottomOpt = Props.pushToBottom;
+  var statusOpt = Props.status;
+  var mt = Props.mt;
   var onClick = Props.onClick;
-  var active = activeOpt !== undefined ? activeOpt : false;
-  var pushToBottom = pushToBottomOpt !== undefined ? pushToBottomOpt : false;
+  var status = statusOpt !== undefined ? statusOpt : "unactive";
   var content = href !== undefined ? React.createElement(Link, {
           href: href,
           children: React.createElement("div", undefined, icon)
         }) : icon;
   var tmp = {
     children: content,
-    className: Navbar_Styles.icon(active, pushToBottom, undefined),
-    ariaSelected: active
+    className: "asdf",
+    status: status
   };
-  if (onClick !== undefined) {
-    tmp.onClick = Caml_option.valFromOption(onClick);
-  }
   if (title !== undefined) {
     tmp.title = Caml_option.valFromOption(title);
   }
-  return React.createElement(AncestorCustom.Config.Box.make, tmp);
+  if (onClick !== undefined) {
+    tmp.onClick = Caml_option.valFromOption(onClick);
+  }
+  if (mt !== undefined) {
+    tmp.mt = Caml_option.valFromOption(mt);
+  }
+  return React.createElement(Navbar_Styles.IconStyled.make, tmp);
 }
 
 var NavItem = {
@@ -60,23 +62,22 @@ function Navbar(Props) {
           src: user.image
         });
   }
-  return React.createElement(AncestorCustom.Config.Box.make, {
-              children: null,
-              className: Navbar_Styles.container
+  return React.createElement(Navbar_Styles.Container.make, {
+              children: null
             }, React.createElement(Navbar$NavItem, {
                   href: "/",
                   icon: React.createElement(Feather.Terminal, {}),
                   title: Curry._1(t, "Posts"),
-                  active: pathname === "/"
+                  status: pathname === "/" ? "active" : "unactive"
                 }), React.createElement(Navbar$NavItem, {
                   href: "/review",
                   icon: React.createElement(Feather.Heart, {}),
                   title: Curry._1(t, "Review"),
-                  active: pathname === "/review"
+                  status: pathname === "/review" ? "active" : "unactive"
                 }), React.createElement(Navbar$NavItem, {
                   icon: tmp,
                   title: Curry._1(t, (session.data == null) ? "Signin" : "Signout"),
-                  pushToBottom: true,
+                  mt: "auto",
                   onClick: (session.data == null) ? (function (prim) {
                         React$1.signIn(prim);
                         
@@ -90,11 +91,8 @@ function Navbar(Props) {
                 }));
 }
 
-var Styles;
-
 var make = Navbar;
 
-exports.Styles = Styles;
 exports.NavItem = NavItem;
 exports.make = make;
 /* react Not a pure module */

@@ -1,20 +1,12 @@
-open Emotion
-open Theme
+open CssJs
 
-let container = css({
-  "display": "flex",
-  "flexDirection": "column",
-  "gap": Padding.md,
-  "height": "100%",
-})
+module Container = %styled.form([
+  display(#flex),
+  flexDirection(#column),
+  gap(3.->#rem),
+  height(100.->#percent),
+])
 
-let header = css({
-  "display": "flex",
-  "justifyContent": "space-between",
-})
+module Header = %styled.div([display(#flex), justifyContent(#spaceBetween)])
 
-let footer = css({
-  "display": "flex",
-  "justifyContent": "space-between",
-  "marginTop": "auto",
-})
+module Footer = %styled.div([display(#flex), justifyContent(#spaceBetween), marginTop(#auto)])

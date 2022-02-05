@@ -16,7 +16,13 @@
     "@glennsl/rescript-jest",
     "bs-dom-testing-library",
     "@rescriptbr/reform",
-    "reschema"
+    "reschema",
+    "bs-css",
+    "bs-css-emotion"
   ],
-  "ppx-flags": ["rescript-relay/ppx", "lenses-ppx/ppx"]
+  "ppx-flags": [
+    "rescript-relay/ppx",
+    "lenses-ppx/ppx",
+    "@davesnx/styled-ppx/ppx"
+  ]
 }

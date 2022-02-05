@@ -1,18 +1,16 @@
 open AncestorCustom
 open Next
 
-module Styles = Navbar_Styles
+open Navbar_Styles
 
 module NavItem = {
   @react.component
-  let make = (~href=?, ~icon, ~title=?, ~active=false, ~pushToBottom=false, ~onClick=?) => {
+  let make = (~href=?, ~icon, ~title=?, ~status=#unactive, ~mt=?, ~onClick=?) => {
     let content = switch href {
     | Some(href) => <Link href> <div> icon </div> </Link>
     | None => icon
     }
-    <Box ariaSelected=active ?title ?onClick className={Styles.icon(~active, ~pushToBottom, ())}>
-      content
-    </Box>
+    <IconStyled className="asdf" ?mt status ?onClick ?title> content </IconStyled>
   }
 }
 
@@ -23,13 +21,21 @@ let make = () => {
 
   let t = NextIntl.useTranslations()
 
-  <Box className=Styles.container>
-    <NavItem title={t("Posts")} active={pathname == "/"} href="/" icon={<Icon.FiTerminal />} />
+  <Container>
     <NavItem
-      title={t("Review")} active={pathname == "/review"} href="/review" icon={<Icon.FiHeart />}
+      title={t("Posts")}
+      status={pathname == "/" ? #active : #unactive}
+      href="/"
+      icon={<Icon.FiTerminal />}
     />
     <NavItem
-      pushToBottom=true
+      title={t("Review")}
+      status={pathname == "/review" ? #active : #unactive}
+      href="/review"
+      icon={<Icon.FiHeart />}
+    />
+    <NavItem
+      mt=#auto
       title={t(Js.Nullable.isNullable(session.data) ? "Signin" : "Signout")}
       onClick={Js.Nullable.isNullable(session.data) ? Auth.signIn : Auth.signOut}
       icon={switch Js.Nullable.toOption(session.data) {
@@ -38,5 +44,5 @@ let make = () => {
       }}
     />
     <NavItem title={t("Settings")} icon={<Icon.FiSettings />} />
-  </Box>
+  </Container>
 }

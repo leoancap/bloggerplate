@@ -3,68 +3,31 @@
 
 var $$Text = require("../Text/Text.bs.js");
 var Curry = require("rescript/lib/js/curry.js");
-var Theme = require("../../lib/Theme/Theme.bs.js");
 var React = require("react");
 var Render = require("../../lib/Render/Render.bs.js");
 var NextIntl = require("../../bindings/NextIntl/NextIntl.bs.js");
 var Belt_Option = require("rescript/lib/js/belt_Option.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
-var Css = require("@emotion/css");
-var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
-
-var container = Css.css("\n    display: grid;\n    grid-gap: " + Theme.Padding.xs + ";\n    position: relative;\n  ");
-
-var label = Css.css("\n    color: " + Theme.Colors.grayLight + ";\n    font-size: " + Theme.FontSize._sm + ";\n  ");
-
-function input(hasError) {
-  return Css.css({
-              color: Theme.Colors.white,
-              fontSize: Theme.FontSize.sm,
-              border: hasError ? "1px solid " + Theme.Colors.danger : "none",
-              padding: "1.6rem 1.6rem",
-              borderRadius: "6px",
-              outline: "none",
-              width: "100%",
-              backgroundColor: Theme.Colors.gray,
-              transition: "300ms",
-              "&:placeholder": {
-                color: Theme.Colors.grayLight
-              },
-              "&:focus": {
-                transition: "300ms",
-                boxShadow: "0px 0px 0px 2px " + Theme.Colors.primary
-              }
-            });
-}
-
-var textarea = Css.css("\n      min-height: " + Curry._1(AncestorCustom.Config.Styles.Spacing.make, 10) + ";\n      max-height: " + Curry._1(AncestorCustom.Config.Styles.Spacing.make, 25) + ";\n      resize: vertical\n    ");
-
-var error = Css.css("\n      position: absolute;\n      bottom: -" + Theme.Padding.sm + "\n    ");
-
-var Styles = {
-  container: container,
-  label: label,
-  input: input,
-  textarea: textarea,
-  error: error
-};
+var Input_Styles = require("./Input_Styles.bs.js");
 
 function Input(Props) {
   var onChange = Props.onChange;
-  var label$1 = Props.label;
+  var label = Props.label;
   var placeholder = Props.placeholder;
   var value = Props.value;
   var tagOpt = Props.tag;
   var errorOpt = Props.error;
   var tag = tagOpt !== undefined ? tagOpt : "input";
-  var error$1 = errorOpt !== undefined ? Caml_option.valFromOption(errorOpt) : undefined;
-  var baseClass = input(Belt_Option.isSome(error$1));
+  var error = errorOpt !== undefined ? Caml_option.valFromOption(errorOpt) : undefined;
   var t = NextIntl.useTranslations(undefined);
+  var intent = Belt_Option.mapWithDefault(error, "success", (function (param) {
+          return "danger";
+        }));
   var tmp;
   if (tag === "input") {
     var tmp$1 = {
-      className: baseClass,
-      label: label$1
+      label: label,
+      intent: intent
     };
     if (placeholder !== undefined) {
       tmp$1.placeholder = Caml_option.valFromOption(placeholder);
@@ -75,11 +38,11 @@ function Input(Props) {
     if (onChange !== undefined) {
       tmp$1.onChange = Caml_option.valFromOption(onChange);
     }
-    tmp = React.createElement("input", tmp$1);
+    tmp = React.createElement(Input_Styles.InputStyled.make, tmp$1);
   } else {
     var tmp$2 = {
-      className: baseClass + " " + textarea,
-      label: label$1
+      label: label,
+      intent: intent
     };
     if (placeholder !== undefined) {
       tmp$2.placeholder = Caml_option.valFromOption(placeholder);
@@ -90,24 +53,21 @@ function Input(Props) {
     if (onChange !== undefined) {
       tmp$2.onChange = Caml_option.valFromOption(onChange);
     }
-    tmp = React.createElement("textarea", tmp$2);
+    tmp = React.createElement(Input_Styles.TextArea.make, tmp$2);
   }
-  return React.createElement(AncestorCustom.Config.Box.make, {
-              children: null,
-              className: container
-            }, React.createElement("label", {
-                  className: label,
-                  htmlFor: label$1
-                }, Render.s(label$1)), tmp, error$1 !== undefined ? React.createElement(AncestorCustom.Config.Box.make, {
+  return React.createElement(Input_Styles.Container.make, {
+              children: null
+            }, React.createElement(Input_Styles.Label.make, {
+                  children: Render.s(label),
+                  htmlFor: label
+                }), tmp, error !== undefined ? React.createElement(Input_Styles.$$Error.make, {
                     children: React.createElement($$Text.Small.make, {
-                          children: Curry._1(t, error$1)
-                        }),
-                    className: error
+                          children: Curry._1(t, error)
+                        })
                   }) : null);
 }
 
 var make = Input;
 
-exports.Styles = Styles;
 exports.make = make;
-/* container Not a pure module */
+/* Text Not a pure module */

@@ -1,15 +1,15 @@
-open Emotion
 open Theme
 
-let container = css({
-  "display": "grid",
-  "gridTemplateColumns": "1fr 1fr",
-  "gridGap": Padding.md,
-})
+module Container = %styled.div(`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+  padding: 0 $(Padding.md);
+`)
 
-let header = css({
-  "padding": Padding.md,
-  "display": "flex",
-  "justifyContent": "space-between",
-  "alignItems": "center",
-})
+module Header = %styled.div(`
+  padding: $(Padding.md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`)

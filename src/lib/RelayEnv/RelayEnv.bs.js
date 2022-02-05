@@ -14,43 +14,40 @@ var Graphql_error = /* @__PURE__ */Caml_exceptions.create("RelayEnv.Graphql_erro
 
 var isProd = (process.env.NODE_ENV === 'production');
 
-((console.log(process.env.NODE_ENV)));
-
 var apiUrl = isProd ? "https://bloggerplate.vercel.app/api/graphql" : "http://localhost:3000/api/graphql";
-
-function fetchQuery(operation, variables, _cacheConfig, _uploadables) {
-  return fetch(apiUrl, Fetch.RequestInit.make(/* Post */2, {
-                      "content-type": "application/json",
-                      accept: "application/json"
-                    }, Caml_option.some(JSON.stringify(Js_dict.fromList({
-                                  hd: [
-                                    "query",
-                                    operation.text
-                                  ],
-                                  tl: {
-                                    hd: [
-                                      "variables",
-                                      variables
-                                    ],
-                                    tl: /* [] */0
-                                  }
-                                }))), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(undefined)).then(function (resp) {
-              if (resp.ok) {
-                return resp.json();
-              } else {
-                return Promise.reject({
-                            RE_EXN_ID: Graphql_error,
-                            _1: "Request failed: " + resp.statusText
-                          });
-              }
-            });
-}
 
 function getRecords(environment) {
   return environment.getStore().getSource().toJSON();
 }
 
 function createEnvironment(records, param) {
+  var fetchQuery = function (operation, variables, _cacheConfig, _uploadables) {
+    return fetch(apiUrl, Fetch.RequestInit.make(/* Post */2, {
+                        "content-type": "application/json",
+                        accept: "application/json"
+                      }, Caml_option.some(JSON.stringify(Js_dict.fromList({
+                                    hd: [
+                                      "query",
+                                      operation.text
+                                    ],
+                                    tl: {
+                                      hd: [
+                                        "variables",
+                                        variables
+                                      ],
+                                      tl: /* [] */0
+                                    }
+                                  }))), undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(undefined)).then(function (resp) {
+                if (resp.ok) {
+                  return resp.json();
+                } else {
+                  return Promise.reject({
+                              RE_EXN_ID: Graphql_error,
+                              _1: "Request failed: " + resp.statusText
+                            });
+                }
+              });
+  };
   var source = new RelayRuntime.RecordSource(records !== undefined ? Caml_option.valFromOption(records) : undefined);
   var store = RescriptRelay.Store.make(source, 10, undefined, undefined);
   var network = RelayRuntime.Network.create(fetchQuery, undefined);
@@ -60,7 +57,6 @@ function createEnvironment(records, param) {
 exports.Graphql_error = Graphql_error;
 exports.isProd = isProd;
 exports.apiUrl = apiUrl;
-exports.fetchQuery = fetchQuery;
 exports.getRecords = getRecords;
 exports.createEnvironment = createEnvironment;
 /*  Not a pure module */

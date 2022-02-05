@@ -1,8 +1,7 @@
 open Theme
 open Render
-open AncestorCustom
 
-module Styles = Posts_Styles
+open Posts_Styles
 
 module Query = %relay(`
   query PostsQuery {
@@ -10,6 +9,10 @@ module Query = %relay(`
       ...SinglePost_post
     }
   }
+`)
+
+module PostsWrapper = %styled.div(`
+  padding: $(Size.md);
 `)
 
 module Content = {
@@ -23,10 +26,10 @@ module Content = {
 
     let toggleModal = _ => setIsModalOpen(isOpen => !isOpen)
 
-    <Box>
-      <Box className=Styles.header>
+    <div>
+      <Header>
         <Text.Title> {t("Posts")} </Text.Title>
-        <Box>
+        <div>
           <AddPostModal
             onClose={toggleModal}
             onSave={() => {
@@ -36,30 +39,35 @@ module Content = {
             isOpen=isModalOpen
           />
           <Button onClick={toggleModal}> {"Add Post"->t->s} </Button>
-        </Box>
-      </Box>
-      <Box px=[xs(Size.md)] className=Styles.container>
+        </div>
+      </Header>
+      <Container>
         {data.posts->Render.mapi((thisPost, key) => <SinglePost key post=thisPost.fragmentRefs />)}
-      </Box>
-    </Box>
+      </Container>
+    </div>
   }
 }
 
 @react.component
 let make = () => {
-  let (queryRef, loadQuery, _) = Query.useLoader()
+  let (queryRef, loadQuery, dispose) = Query.useLoader()
 
-  React.useEffect0(() => {
-    loadQuery(~variables=(), ())
+  React.useEffect1(() => {
+    Js.log2("queryRef", {queryRef})
+    if Belt.Option.isNone(queryRef) {
+      Js.log("geting data")
+      loadQuery(~variables=(), ())
+    }
     None
-  })
+  }, [queryRef])
 
   switch queryRef {
   | Some(queryRef) =>
     <Content
       queryRef
       refetch={() => {
-        loadQuery(~variables=(), ())
+        Js.log("refetching")
+        dispose()
       }}
     />
   | None => React.null
