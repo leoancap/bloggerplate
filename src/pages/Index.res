@@ -1,8 +1,22 @@
+module Query = %relay(`
+  query IndexQuery {
+    ...PostList_query
+  }
+`)
+
+module Main = {
+  @react.component
+  let make = () => {
+    let query = Query.use(~variables=(), ())
+
+    <PostList query=query.fragmentRefs />
+  }
+}
+
 let default = () => {
   open AncestorCustom
-  <>
-    <Box> <React.Suspense fallback={React.string("Loading....")}> <Posts /> </React.Suspense> </Box>
-  </>
+
+  <Box> <React.Suspense fallback={React.string("Loading....")}> <Main /> </React.Suspense> </Box>
 }
 
 let getServerSideProps = ctx => {
@@ -10,11 +24,11 @@ let getServerSideProps = ctx => {
   open Next
 
   let environment = RelayEnv.createEnvironment()
-  let postsPromise = Posts.Query.fetchPromised(~environment, ~variables=(), ())
+  let postsPromise = Query.fetchPromised(~environment, ~variables=(), ())
   let userPromise = Auth.getSession(ctx)
 
   Promise.all2((postsPromise, userPromise))->thenResolve(result => {
-    let (_posts, session) = result
+    let (_, session) = result
 
     let records = environment->RelayEnv.getRecords
 

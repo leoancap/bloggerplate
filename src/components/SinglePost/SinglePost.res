@@ -2,14 +2,11 @@ open AncestorCustom
 open Theme
 
 module PostFragment = %relay(`
-  fragment SinglePost_post on Post {
+  fragment SinglePost_postItem on PostItem {
     id
+    dbId
     title
     body
-    user {
-      name
-      image
-    }
   }
 `)
 
@@ -18,8 +15,8 @@ module PostWrapper = %styled.div(`
 `)
 
 @react.component
-let make = (~post) => {
-  let post = PostFragment.use(post)
+let make = (~postItem as postItemRef) => {
+  let post = PostFragment.use(postItemRef)
 
   <Card>
     <Box>

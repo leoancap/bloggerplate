@@ -3,30 +3,29 @@ open Render
 open Theme
 open AddPostModal_Styles
 
-module Form = AddPostModal_Form
-
-module CreatePostMutation = %relay(`
-  mutation AddPostModal_CreatePostMutation(
-    $title: String!
-    $body: String!
-    $email: String!
-  ) {
-    createPost(
-      data: { title: $title, body: $body, user: { connect: { email: $email } } }
-    ) {
-      title
-      body
+module AddPostItemMutation = %relay(`
+  mutation AddPostModal_AddPostItemMutation(
+    $input: AddPostItemInput!
+    $connections: [ID!]!
+  ) @raw_response_type {
+    addPostItem(input: $input) {
+      addedPostItem
+        @appendNode(connections: $connections, edgeTypeName: "PostItemEdge") {
+        id
+        title
+        body
+      }
     }
   }
 `)
 
+module Form = AddPostModal_Form
+
 @react.component
-let make = (~isOpen, ~onClose, ~onSave) => {
+let make = (~isOpen, ~onClose, ~onSave, ~connections) => {
   let t = NextIntl.useTranslations()
 
-  let session = Next.Auth.useSession()
-
-  let (mutate, _isMutating) = CreatePostMutation.use()
+  let (addPost, _) = AddPostItemMutation.use()
 
   let form: Form.api = Form.use(
     ~validationStrategy=OnChange,
@@ -34,20 +33,26 @@ let make = (~isOpen, ~onClose, ~onSave) => {
       ({state}) => {
         Js.log(state)
 
-        let email = Belt.Option.mapWithDefault(session.data->Js.Nullable.toOption, "", ({user}) =>
-          user.email
-        )
-        mutate(
+        open AddPostItemMutation
+        addPost(
           ~variables={
-            title: state.values.title,
-            body: state.values.body,
-            email: email,
+            makeVariables(
+              ~connections,
+              ~input=make_addPostItemInput(~title=state.values.title, ~body=state.values.body, ()),
+            )
           },
-          ~onCompleted={(_, __) => onSave()},
-          ~onError={
-            error => {
-              Js.log2("error", {error.message})
-            }
+          ~onCompleted=(_, _) => onSave(),
+          ~optimisticResponse={
+            addPostItem: Some({
+              addedPostItem: Some({
+                id: {
+                  open RescriptRelay
+                  generateUniqueClientID()->dataIdToString
+                },
+                title: state.values.title,
+                body: state.values.body,
+              }),
+            }),
           },
           (),
         )->ignore

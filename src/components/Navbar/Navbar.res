@@ -10,7 +10,7 @@ module NavItem = {
     | Some(href) => <Link href> <div> icon </div> </Link>
     | None => icon
     }
-    <IconStyled className="asdf" ?mt status ?onClick ?title> content </IconStyled>
+    <IconStyled ?mt status ?onClick ?title> content </IconStyled>
   }
 }
 

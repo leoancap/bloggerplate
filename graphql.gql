@@ -1,0 +1,104 @@
+input AddPostItemInput {
+  title: String!
+  body: String!
+  clientMutationId: String
+}
+
+type AddPostItemPayload {
+  addedPostItem: PostItem
+  addedPostItemEdge: PostItemEdge
+  clientMutationId: String
+}
+
+input DeletePostItemInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type DeletePostItemPayload {
+  deletedPostItemId: ID
+  clientMutationId: String
+}
+
+type Mutation {
+  addPostItem(input: AddPostItemInput!): AddPostItemPayload
+  updatePostItem(input: UpdatePostItemInput!): UpdatePostItemPayload
+  deletePostItem(input: DeletePostItemInput!): DeletePostItemPayload
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type PostItem implements Node {
+  """The ID of an object"""
+  id: ID!
+  dbId: ID!
+  title: String!
+  body: String!
+}
+
+"""A connection to a list of items."""
+type PostItemConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PostItemEdge]
+}
+
+"""An edge in a connection."""
+type PostItemEdge {
+  """The item at the end of the edge"""
+  node: PostItem
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type PostsPaginated {
+  total: Int!
+  hasNextPage: Boolean!
+  results: [PostItem!]!
+}
+
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+  postsConnection(after: String, first: Int, before: String, last: Int): PostItemConnection!
+  posts(limit: Int!, offset: Int!): PostsPaginated!
+  allPosts: [PostItem!]!
+}
+
+input UpdatePostItemInput {
+  id: ID!
+  title: String!
+  body: String!
+  clientMutationId: String
+}
+
+type UpdatePostItemPayload {
+  updatedPostItem: PostItem
+  clientMutationId: String
+}
+

@@ -76,33 +76,33 @@ var Label = {
   make: make$1
 };
 
-function commonStyles(intent) {
+function commonInputStyles(intent) {
   var borderStyles = intent === "danger" ? CssJs.border({
           NAME: "px",
           VAL: 1
         }, "solid", Theme.Colors.danger) : CssJs.border("zero", "none", "transparent");
-  return CssJs.style([
-              borderStyles,
-              CssJs.color(Theme.Colors.white),
-              CssJs.fontSize(Theme.FontSize.sm),
-              CssJs.background(Theme.Colors.gray),
-              CssJs.padding2(Theme.Padding.xs, Theme.Padding.xs),
-              CssJs.borderRadius(Theme.BorderRadius.sm),
-              CssJs.outline("zero", "none", "transparent"),
-              CssJs.width({
-                    NAME: "percent",
-                    VAL: 100
-                  }),
-              CssJs.transitionDuration(300),
-              CssJs.placeholder([CssJs.color(Theme.Colors.grayLight)]),
-              CssJs.focus([
-                    CssJs.transitionDuration(300),
-                    CssJs.boxShadow(Css_Js_Core.Shadow.box(undefined, undefined, undefined, {
-                              NAME: "px",
-                              VAL: 2
-                            }, undefined, Theme.Colors.primary))
-                  ])
-            ]);
+  return [
+          borderStyles,
+          CssJs.color(Theme.Colors.white),
+          CssJs.fontSize(Theme.FontSize.sm),
+          CssJs.background(Theme.Colors.gray),
+          CssJs.padding2(Theme.Padding.xs, Theme.Padding.xs),
+          CssJs.borderRadius(Theme.BorderRadius.sm),
+          CssJs.outline("zero", "none", "transparent"),
+          CssJs.width({
+                NAME: "percent",
+                VAL: 100
+              }),
+          CssJs.transitionDuration(300),
+          CssJs.placeholder([CssJs.color(Theme.Colors.grayLight)]),
+          CssJs.focus([
+                CssJs.transitionDuration(300),
+                CssJs.boxShadow(Css_Js_Core.Shadow.box(undefined, undefined, undefined, {
+                          NAME: "px",
+                          VAL: 2
+                        }, undefined, Theme.Colors.primary))
+              ])
+        ];
 }
 
 var deleteProp$2 = ((newProps, key) => delete newProps[key]);
@@ -116,7 +116,8 @@ function getOrEmpty$2(str) {
 }
 
 function styles$2(intent, param) {
-  return CssJs.style([CssJs.label("InputStyled")]);
+  var styles$3 = commonInputStyles(intent);
+  return CssJs.style(styles$3);
 }
 
 function make$2(props) {
@@ -149,18 +150,18 @@ function getOrEmpty$3(str) {
 }
 
 function styles$3(intent, param) {
-  return CssJs.style([
-              CssJs.label("TextArea"),
-              CssJs.resize("vertical"),
-              CssJs.maxHeight({
-                    NAME: "rem",
-                    VAL: 25
-                  }),
-              CssJs.minHeight({
-                    NAME: "rem",
-                    VAL: 10
-                  })
-            ]);
+  var styles$4 = [
+      CssJs.minHeight({
+            NAME: "rem",
+            VAL: 10
+          }),
+      CssJs.maxHeight({
+            NAME: "rem",
+            VAL: 25
+          }),
+      CssJs.resize("vertical")
+    ].concat(commonInputStyles(intent));
+  return CssJs.style(styles$4);
 }
 
 function make$3(props) {
@@ -221,7 +222,7 @@ var $$Error = {
 
 exports.Container = Container;
 exports.Label = Label;
-exports.commonStyles = commonStyles;
+exports.commonInputStyles = commonInputStyles;
 exports.InputStyled = InputStyled;
 exports.TextArea = TextArea;
 exports.$$Error = $$Error;

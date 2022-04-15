@@ -11,20 +11,20 @@ var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
 var Js_null_undefined = require("rescript/lib/js/js_null_undefined.js");
 var Hooks = require("react-relay/hooks");
 var RescriptRelay_Internal = require("rescript-relay/src/RescriptRelay_Internal.bs.js");
-var SinglePost_post_graphql = require("../../__generated__/rescript-relay/SinglePost_post_graphql.bs.js");
+var SinglePost_postItem_graphql = require("../../__generated__/rescript-relay/SinglePost_postItem_graphql.bs.js");
 
 function use(fRef) {
-  var data = Hooks.useFragment(SinglePost_post_graphql.node, fRef);
-  return RescriptRelay_Internal.internal_useConvertedValue(SinglePost_post_graphql.Internal.convertFragment, data);
+  var data = Hooks.useFragment(SinglePost_postItem_graphql.node, fRef);
+  return RescriptRelay_Internal.internal_useConvertedValue(SinglePost_postItem_graphql.Internal.convertFragment, data);
 }
 
 function useOpt(opt_fRef) {
   var fr = opt_fRef !== undefined ? Caml_option.some(Caml_option.valFromOption(opt_fRef)) : undefined;
-  var nullableFragmentData = Hooks.useFragment(SinglePost_post_graphql.node, fr !== undefined ? Js_null_undefined.fromOption(Caml_option.some(Caml_option.valFromOption(fr))) : null);
+  var nullableFragmentData = Hooks.useFragment(SinglePost_postItem_graphql.node, fr !== undefined ? Js_null_undefined.fromOption(Caml_option.some(Caml_option.valFromOption(fr))) : null);
   var data = (nullableFragmentData == null) ? undefined : Caml_option.some(nullableFragmentData);
   return RescriptRelay_Internal.internal_useConvertedValue((function (rawFragment) {
                 if (rawFragment !== undefined) {
-                  return SinglePost_post_graphql.Internal.convertFragment(rawFragment);
+                  return SinglePost_postItem_graphql.Internal.convertFragment(rawFragment);
                 }
                 
               }), data);
@@ -70,18 +70,18 @@ var PostWrapper = {
 };
 
 function SinglePost(Props) {
-  var post = Props.post;
-  var post$1 = use(post);
+  var postItemRef = Props.postItem;
+  var post = use(postItemRef);
   return React.createElement(Card.make, {
               children: React.createElement(AncestorCustom.Config.Box.make, {
                     children: null
                   }, React.createElement(AncestorCustom.Config.Box.make, {
                         children: React.createElement($$Text.H3.make, {
-                              children: post$1.title
+                              children: post.title
                             })
                       }), React.createElement(make, {
                         children: React.createElement($$Text.Body.make, {
-                              children: post$1.body
+                              children: post.body
                             })
                       }))
             });

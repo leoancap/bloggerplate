@@ -60,13 +60,36 @@ function getOrEmpty$1(str) {
 }
 
 function styles$1(statusOpt, mtOpt, param) {
+  var status = statusOpt !== undefined ? statusOpt : "unactive";
   var mt = mtOpt !== undefined ? mtOpt : "unset";
   return CssJs.style([
-              CssJs.color(Theme.Colors.grayLight),
-              CssJs.cursor("pointer"),
-              CssJs.position("relative"),
+              CssJs.label("IconStyled"),
+              CssJs.before([
+                    CssJs.unsafe("content", "' '"),
+                    CssJs.height({
+                          NAME: "rem",
+                          VAL: 6
+                        }),
+                    CssJs.width({
+                          NAME: "px",
+                          VAL: 2
+                        }),
+                    CssJs.top("zero"),
+                    CssJs.left("zero"),
+                    CssJs.position("absolute"),
+                    CssJs.backgroundColor(Theme.Colors.white),
+                    CssJs.display(status === "unactive" ? "none" : "unset")
+                  ]),
+              CssJs.hover([CssJs.color(Theme.Colors.white)]),
+              CssJs.selector("svg, img", [
+                    CssJs.height(Theme.Size.lg),
+                    CssJs.width(Theme.Size.lg)
+                  ]),
+              CssJs.marginTop(mt),
               CssJs.padding(Theme.Padding.xs),
-              CssJs.marginTop(mt)
+              CssJs.position("relative"),
+              CssJs.cursor("pointer"),
+              CssJs.color(Theme.Colors.grayLight)
             ]);
 }
 

@@ -11,34 +11,29 @@ module Container = %styled.div(`
 
 module IconStyled = %styled.div(
   (~status=#unactive, ~mt=#unset) => {
-    let display = switch status {
-    | #active => #unset
-    | #unactive => #none
-    }
-
     [
       color(Colors.grayLight),
       cursor(#pointer),
       position(#relative),
       padding(Padding.xs),
       marginTop(mt),
+      selector(. "svg, img", [height(Size.lg), width(Size.lg)]),
+      hover([color(Colors.white)]),
+      before([
+        unsafe("content", "' '"),
+        height(6.->#rem),
+        width(2->#px),
+        top(#zero),
+        left(#zero),
+        position(#absolute),
+        backgroundColor(Colors.white),
+        display(
+          switch status {
+          | #active => #unset
+          | #unactive => #none
+          },
+        ),
+      ]),
     ]
   }
 )
-/* svg, img { */
-/* height: $(Size.lg); */
-/* width: $(Size.lg); */
-/* } */
-/* &:hover { */
-/* color: $(Colors.white) */
-/* } */
-/* &::before { */
-/* content: ' '; */
-/* height: 6rem; */
-/* width: 2px; */
-/* top: 0; */
-/* left: 0; */
-/* position: absolute; */
-/* background-color: $(Colors.white); */
-/* display: $(display) */
-/* } */

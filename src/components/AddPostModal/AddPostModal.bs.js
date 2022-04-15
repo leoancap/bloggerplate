@@ -11,25 +11,27 @@ var Button = require("../Button/Button.bs.js");
 var Render = require("../../lib/Render/Render.bs.js");
 var NextIntl = require("../../bindings/NextIntl/NextIntl.bs.js");
 var Belt_Array = require("rescript/lib/js/belt_Array.js");
-var Belt_Option = require("rescript/lib/js/belt_Option.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var RelayRuntime = require("relay-runtime");
 var AncestorCustom = require("../../lib/Theme/AncestorCustom.bs.js");
 var ReForm__Helpers = require("@rescriptbr/reform/src/ReForm__Helpers.bs.js");
-var React$1 = require("next-auth/react");
 var AddPostModal_Form = require("./AddPostModal_Form.bs.js");
 var Hooks = require("react-relay/hooks");
 var AddPostModal_Styles = require("./AddPostModal_Styles.bs.js");
 var Feather = require("@emotion-icons/feather");
-var AddPostModal_CreatePostMutation_graphql = require("../../__generated__/rescript-relay/AddPostModal_CreatePostMutation_graphql.bs.js");
+var AddPostModal_AddPostItemMutation_graphql = require("../../__generated__/rescript-relay/AddPostModal_AddPostItemMutation_graphql.bs.js");
+
+var make_addPostItemInput = AddPostModal_AddPostItemMutation_graphql.Utils.make_addPostItemInput;
+
+var makeVariables = AddPostModal_AddPostItemMutation_graphql.Utils.makeVariables;
 
 function commitMutation(environment, variables, optimisticUpdater, optimisticResponse, updater, onCompleted, onError, uploadables, param) {
   return RelayRuntime.commitMutation(environment, {
-              mutation: AddPostModal_CreatePostMutation_graphql.node,
-              variables: AddPostModal_CreatePostMutation_graphql.Internal.convertVariables(variables),
+              mutation: AddPostModal_AddPostItemMutation_graphql.node,
+              variables: AddPostModal_AddPostItemMutation_graphql.Internal.convertVariables(variables),
               onCompleted: (function (res, err) {
                   if (onCompleted !== undefined) {
-                    return Curry._2(onCompleted, AddPostModal_CreatePostMutation_graphql.Internal.convertResponse(res), (err == null) ? undefined : Caml_option.some(err));
+                    return Curry._2(onCompleted, AddPostModal_AddPostItemMutation_graphql.Internal.convertResponse(res), (err == null) ? undefined : Caml_option.some(err));
                   }
                   
                 }),
@@ -39,17 +41,17 @@ function commitMutation(environment, variables, optimisticUpdater, optimisticRes
                   }
                   
                 }),
-              optimisticResponse: optimisticResponse !== undefined ? AddPostModal_CreatePostMutation_graphql.Internal.convertWrapRawResponse(optimisticResponse) : undefined,
+              optimisticResponse: optimisticResponse !== undefined ? AddPostModal_AddPostItemMutation_graphql.Internal.convertWrapRawResponse(optimisticResponse) : undefined,
               optimisticUpdater: optimisticUpdater,
               updater: updater !== undefined ? (function (store, r) {
-                    return Curry._2(updater, store, AddPostModal_CreatePostMutation_graphql.Internal.convertResponse(r));
+                    return Curry._2(updater, store, AddPostModal_AddPostItemMutation_graphql.Internal.convertResponse(r));
                   }) : undefined,
               uploadables: uploadables
             });
 }
 
 function use(param) {
-  var match = Hooks.useMutation(AddPostModal_CreatePostMutation_graphql.node);
+  var match = Hooks.useMutation(AddPostModal_AddPostItemMutation_graphql.node);
   var mutate = match[0];
   return [
           React.useMemo((function () {
@@ -57,15 +59,15 @@ function use(param) {
                     return Curry._1(mutate, {
                                 onError: param,
                                 onCompleted: param$1 !== undefined ? (function (r, errors) {
-                                      return Curry._2(param$1, AddPostModal_CreatePostMutation_graphql.Internal.convertResponse(r), (errors == null) ? undefined : Caml_option.some(errors));
+                                      return Curry._2(param$1, AddPostModal_AddPostItemMutation_graphql.Internal.convertResponse(r), (errors == null) ? undefined : Caml_option.some(errors));
                                     }) : undefined,
                                 onUnsubscribe: param$2,
-                                optimisticResponse: param$3 !== undefined ? AddPostModal_CreatePostMutation_graphql.Internal.convertWrapRawResponse(param$3) : undefined,
+                                optimisticResponse: param$3 !== undefined ? AddPostModal_AddPostItemMutation_graphql.Internal.convertWrapRawResponse(param$3) : undefined,
                                 optimisticUpdater: param$4,
                                 updater: param$5 !== undefined ? (function (store, r) {
-                                      return Curry._2(param$5, store, AddPostModal_CreatePostMutation_graphql.Internal.convertResponse(r));
+                                      return Curry._2(param$5, store, AddPostModal_AddPostItemMutation_graphql.Internal.convertResponse(r));
                                     }) : undefined,
-                                variables: AddPostModal_CreatePostMutation_graphql.Internal.convertVariables(param$6),
+                                variables: AddPostModal_AddPostItemMutation_graphql.Internal.convertVariables(param$6),
                                 uploadables: param$7
                               });
                   };
@@ -74,16 +76,24 @@ function use(param) {
         ];
 }
 
-var CreatePostMutation_makeVariables = AddPostModal_CreatePostMutation_graphql.Utils.makeVariables;
+var AddPostItemMutation_make_rawResponse_addPostItem_addedPostItem = AddPostModal_AddPostItemMutation_graphql.Utils.make_rawResponse_addPostItem_addedPostItem;
 
-var CreatePostMutation_make_response_createPost = AddPostModal_CreatePostMutation_graphql.Utils.make_response_createPost;
+var AddPostItemMutation_make_rawResponse_addPostItem = AddPostModal_AddPostItemMutation_graphql.Utils.make_rawResponse_addPostItem;
 
-var CreatePostMutation_makeOptimisticResponse = AddPostModal_CreatePostMutation_graphql.Utils.makeOptimisticResponse;
+var AddPostItemMutation_make_response_addPostItem_addedPostItem = AddPostModal_AddPostItemMutation_graphql.Utils.make_response_addPostItem_addedPostItem;
 
-var CreatePostMutation = {
-  makeVariables: CreatePostMutation_makeVariables,
-  make_response_createPost: CreatePostMutation_make_response_createPost,
-  makeOptimisticResponse: CreatePostMutation_makeOptimisticResponse,
+var AddPostItemMutation_make_response_addPostItem = AddPostModal_AddPostItemMutation_graphql.Utils.make_response_addPostItem;
+
+var AddPostItemMutation_makeOptimisticResponse = AddPostModal_AddPostItemMutation_graphql.Utils.makeOptimisticResponse;
+
+var AddPostItemMutation = {
+  make_addPostItemInput: make_addPostItemInput,
+  makeVariables: makeVariables,
+  make_rawResponse_addPostItem_addedPostItem: AddPostItemMutation_make_rawResponse_addPostItem_addedPostItem,
+  make_rawResponse_addPostItem: AddPostItemMutation_make_rawResponse_addPostItem,
+  make_response_addPostItem_addedPostItem: AddPostItemMutation_make_response_addPostItem_addedPostItem,
+  make_response_addPostItem: AddPostItemMutation_make_response_addPostItem,
+  makeOptimisticResponse: AddPostItemMutation_makeOptimisticResponse,
   Types: undefined,
   commitMutation: commitMutation,
   use: use
@@ -93,35 +103,33 @@ function AddPostModal(Props) {
   var isOpen = Props.isOpen;
   var onClose = Props.onClose;
   var onSave = Props.onSave;
+  var connections = Props.connections;
   var t = NextIntl.useTranslations(undefined);
-  var session = React$1.useSession();
   var match = use(undefined);
-  var mutate = match[0];
+  var addPost = match[0];
   var form = Curry._7(AddPostModal_Form.use, AddPostModal_Form.initialState, /* Schema */{
         _0: Belt_Array.concat(Curry._3(AddPostModal_Form.ReSchema.Validation.nonEmpty, undefined, undefined, /* Title */0), Curry._3(AddPostModal_Form.ReSchema.Validation.nonEmpty, undefined, undefined, /* Body */1))
       }, (function (param) {
           var state = param.state;
           console.log(state);
-          var email = Belt_Option.mapWithDefault(Caml_option.nullable_to_opt(session.data), "", (function (param) {
-                  return param.user.email;
-                }));
-          Curry.app(mutate, [
-                (function (error) {
-                    console.log("error", error.message);
-                    
-                  }),
-                (function (param, __) {
+          Curry.app(addPost, [
+                undefined,
+                (function (param, param$1) {
                     return Curry._1(onSave, undefined);
                   }),
                 undefined,
-                undefined,
-                undefined,
-                undefined,
                 {
-                  title: state.values.title,
-                  body: state.values.body,
-                  email: email
+                  addPostItem: {
+                    addedPostItem: {
+                      id: RelayRuntime.generateUniqueClientID(),
+                      title: state.values.title,
+                      body: state.values.body
+                    }
+                  }
                 },
+                undefined,
+                undefined,
+                Curry._2(makeVariables, Curry._4(make_addPostItemInput, state.values.title, state.values.body, undefined, undefined), connections),
                 undefined,
                 undefined
               ]);
@@ -189,7 +197,7 @@ var Form;
 
 var make = AddPostModal;
 
+exports.AddPostItemMutation = AddPostItemMutation;
 exports.Form = Form;
-exports.CreatePostMutation = CreatePostMutation;
 exports.make = make;
 /* Text Not a pure module */

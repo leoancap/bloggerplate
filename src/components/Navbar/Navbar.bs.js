@@ -26,7 +26,6 @@ function Navbar$NavItem(Props) {
         }) : icon;
   var tmp = {
     children: content,
-    className: "asdf",
     status: status
   };
   if (title !== undefined) {

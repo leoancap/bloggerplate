@@ -4,15 +4,11 @@
 module Types = {
   @@ocaml.warning("-30")
   
-  type rec fragment_user = {
-    name: option<string>,
-    image: option<string>,
-  }
   type fragment = {
     id: string,
+    dbId: string,
     title: string,
     body: string,
-    user: fragment_user,
   }
 }
 
@@ -21,7 +17,7 @@ module Internal = {
   let fragmentConverter: 
     Js.Dict.t<Js.Dict.t<Js.Dict.t<string>>> = 
     %raw(
-      json`{"__root":{"user_name":{"n":""},"user_image":{"n":""}}}`
+      json`{}`
     )
   
   let fragmentConverterMap = ()
@@ -34,7 +30,7 @@ module Internal = {
 type t
 type fragmentRef
 external getFragmentRef:
-  RescriptRelay.fragmentRefs<[> | #SinglePost_post]> => fragmentRef = "%identity"
+  RescriptRelay.fragmentRefs<[> | #SinglePost_postItem]> => fragmentRef = "%identity"
 
 
 module Utils = {
@@ -48,13 +44,20 @@ let node: operationType = %raw(json` {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SinglePost_post",
+  "name": "SinglePost_postItem",
   "selections": [
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "dbId",
       "storageKey": null
     },
     {
@@ -70,34 +73,9 @@ let node: operationType = %raw(json` {
       "kind": "ScalarField",
       "name": "body",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "User",
-      "kind": "LinkedField",
-      "name": "user",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "image",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
-  "type": "Post",
+  "type": "PostItem",
   "abstractKey": null
 } `)
 

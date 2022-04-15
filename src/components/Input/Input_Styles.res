@@ -12,12 +12,12 @@ module Label = %styled.label(`
     font-size: $(FontSize.sm);
 `)
 
-let commonStyles = (~intent) => {
+let commonInputStyles = (~intent) => {
   let borderStyles = switch intent {
   | #danger => border(1->#px, #solid, Colors.danger)
   | _ => border(#zero, #none, #transparent)
   }
-  %cx([
+  [
     borderStyles,
     color(Colors.white),
     fontSize(FontSize.sm),
@@ -29,16 +29,43 @@ let commonStyles = (~intent) => {
     transitionDuration(300),
     placeholder([color(Colors.grayLight)]),
     focus([transitionDuration(300), boxShadow(Shadow.box(~spread=2->#px, Colors.primary))]),
-  ])
+  ]
 }
 
-module InputStyled = %styled.input((~intent) => [])
+module InputStyled = %styled.input(
+  (~intent) => {
+    let styles = commonInputStyles(~intent)
+
+    styles
+  }
+)
 
 module TextArea = %styled.textarea(
-  (~intent) => [minHeight(10.->#rem), maxHeight(25.->#rem), resize(#vertical)]
+  (~intent) => {
+    let styles = Js.Array2.concat(
+      [minHeight(10.->#rem), maxHeight(25.->#rem), resize(#vertical)],
+      commonInputStyles(~intent),
+    )
+    styles
+  }
 )
 
 module Error = %styled.div(`
   position: absolute;
   bottom: -2rem;
 `)
+
+/* let sharedStyles = [%css("height: 28px")] */
+
+/* module Comp1 = %styled.div( */
+/* (~a) => { */
+/* let styles = sharedStyles */
+/* styles */
+/* } */
+/* ) */
+
+/* module Comp2 = %styled.div( */
+/* (~a) => { */
+/* sharedStyles */
+/* } */
+/* ) */

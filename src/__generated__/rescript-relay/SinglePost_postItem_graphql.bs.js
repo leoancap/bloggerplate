@@ -6,7 +6,7 @@ var RescriptRelay = require("rescript-relay/src/RescriptRelay.bs.js");
 
 var Types = {};
 
-var fragmentConverter = {"__root":{"user_name":{"n":""},"user_image":{"n":""}}};
+var fragmentConverter = {};
 
 function convertFragment(v) {
   return RescriptRelay.convertObj(v, fragmentConverter, undefined, undefined);
@@ -24,13 +24,20 @@ var node = {
   "argumentDefinitions": [],
   "kind": "Fragment",
   "metadata": null,
-  "name": "SinglePost_post",
+  "name": "SinglePost_postItem",
   "selections": [
     {
       "alias": null,
       "args": null,
       "kind": "ScalarField",
       "name": "id",
+      "storageKey": null
+    },
+    {
+      "alias": null,
+      "args": null,
+      "kind": "ScalarField",
+      "name": "dbId",
       "storageKey": null
     },
     {
@@ -46,34 +53,9 @@ var node = {
       "kind": "ScalarField",
       "name": "body",
       "storageKey": null
-    },
-    {
-      "alias": null,
-      "args": null,
-      "concreteType": "User",
-      "kind": "LinkedField",
-      "name": "user",
-      "plural": false,
-      "selections": [
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "name",
-          "storageKey": null
-        },
-        {
-          "alias": null,
-          "args": null,
-          "kind": "ScalarField",
-          "name": "image",
-          "storageKey": null
-        }
-      ],
-      "storageKey": null
     }
   ],
-  "type": "Post",
+  "type": "PostItem",
   "abstractKey": null
 };
 
