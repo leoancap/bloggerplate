@@ -55,17 +55,17 @@ module Error = %styled.div(`
   bottom: -2rem;
 `)
 
-/* let sharedStyles = [%css("height: 28px")] */
+let sharedStyles = [%css("height: 28px")]
 
-/* module Comp1 = %styled.div( */
-/* (~a) => { */
-/* let styles = sharedStyles */
-/* styles */
-/* } */
-/* ) */
+module Comp1 = %styled.div(
+  (~a) => {
+    let styles = sharedStyles
+    styles
+  }
+)
 
-/* module Comp2 = %styled.div( */
-/* (~a) => { */
-/* sharedStyles */
-/* } */
-/* ) */
+module Comp2 = %styled.div(
+  (~a) => {
+    sharedStyles
+  }
+)
